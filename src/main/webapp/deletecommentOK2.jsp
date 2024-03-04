@@ -19,13 +19,14 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	int idx = Integer.parseInt(request.getParameter("idx"));
-	
-	
 	//out.println(idx);
 	
 	BookCommentService.getInstance().deleteComment(idx);
 
-	pageContext.forward("insertcomment.jsp");
+	int ISBN = Integer.parseInt(request.getParameter("ISBN"));
+	request.setAttribute("ISBN", ISBN);
+	
+	pageContext.forward("selectByISBN.jsp");
 	
 %>
 

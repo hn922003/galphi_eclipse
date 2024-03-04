@@ -29,7 +29,7 @@
 		
 		<!-- 이 줄은 원래 보이면 안되는 줄로 테스트가 완료된 후 화면에 보이지 않게 한다. -->
 		<!-- <tr style="display: none;"> -->
-		<tr>
+		<tr style="display: none;">
 			<td colspan="4">
 				<!-- 수정 또는 삭제할 댓글의 책번호-->
 				ISBN: <input type="text" name="ISBN" size="1" value="${co.ISBN}"/>

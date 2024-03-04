@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="./images/galphi_fabi.jpg" />
     <meta charset="UTF-8">
     <title>Test</title>
 </head>
