@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tjoeun.category.vo.FreeboardVO">
+<mapper namespace="com.galphi.vo.BookVO">
 
-	<!-- 메인글 1건을 저장한다. -->
-	<insert id="insert" parameterType="vo">
-		insert into freeboard (idx, name, password, subject, content, notice, ip) 
-		values (freeboard_idx_seq.nextval, #{name}, #{password}, #{subject}, #{content}, #{notice}, #{ip})
-	</insert>
-
-	<!-- 메인글 전체 개수를 얻어온다. -->
-	<select id="selectCount" resultType="int">
-		select count(*) from freeboard
+	<!-- 메인글 1건을 얻어온다. -->
+	<select id="selectByISBN" parameterType="int" resultType="vo">
+		select * from book where ISBN = #{ISBN} 
 	</select>
-
-	<!-- 1페이지 분량의 메인글을 얻어온다. -->
-	<select id="selectList" parameterType="java.util.HashMap" resultType="vo">
+	
+	<!-- 1페이지 분량의 오늘의 추천 도서를 얻어온다. -->
+	<select id="selectDailyList" parameterType="java.util.HashMap" resultType="vo">
 		<![CDATA[
 		select * from (
-			select rownum rnum, AA.* from (
-				select * from freeboard order by idx desc
-			) AA where rownum <= #{endNo}
+			select rownum rnum, TT.* from (
+				select * from book where avg > 8 order by DBMS_RANDOM.RANDOM
+			) TT where rownum <= 10
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+		
+	<!-- 1페이지 분량의 베스트 도서를 얻어온다. -->
+	<select id="selectBestList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book order by avg desc
+			) TT where rownum <= 10
 		) where rnum >= #{startNo}
 		]]>
 	</select>
 	
-	<!-- 조회수를 증가시킨다. -->
-	<update id="increment" parameterType="int">
-		update freeboard set hit = hit + 1 where idx = #{idx}
-	</update>
-	
-	<!-- 메인글 1건을 얻어온다. -->
-	<select id="selectByIdx" parameterType="int" resultType="vo">
-		select * from freeboard where idx = #{idx}
+	<!-- 신간도서 전체 개수를 얻어온다. -->
+	<select id="selectNewCount" resultType="int">
+		select count(*) from book where TO_DATE(pDate) > sysdate - 90
+	</select>
+		
+	<!-- 1페이지 분량의 신간 도서를 얻어온다. -->
+	<select id="selectNewList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book where TO_DATE(pDate) > sysdate - 90 order by pdate desc
+			) TT where rownum <= #{endNo} 
+		) where rnum >= #{startNo}
+		]]>
 	</select>
 	
-	<!-- 메인글 1건을 삭제한다. -->
-	<delete id="delete" parameterType="int">
-		delete from freeboard where idx = #{idx}
-	</delete>
+	<!-- 메인글 전체 개수를 얻어온다. -->
+	<select id="selectCount" resultType="int">
+		select count(*) from book 
+	</select>
 	
-	<!-- 메인글 1건을 수정한다. -->
-	<update id="update" parameterType="vo">
-		update freeboard set subject = #{subject}, content = #{content}, notice = #{notice} 
-		where idx = #{idx}
-	</update>
-	
-	<!-- 모든 공지글을 얻어온다. -->
-	<select id="selectNotice" resultType="vo">
-		select * from freeboard where notice = 'on' order by idx desc
+	<!-- 1페이지 분량의 메인글을 얻어온다. -->
+	<select id="selectList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book order by ISBN desc
+			) TT where rownum <= #{endNo} 
+		) where rnum >= #{startNo}
+		]]>
 	</select>
 	
 </mapper>
