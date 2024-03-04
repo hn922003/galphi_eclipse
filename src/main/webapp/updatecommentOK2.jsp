@@ -1,3 +1,5 @@
+<%@page import="com.galphi.service.BookService"%>
+<%@page import="com.galphi.vo.BookVO"%>
 <%@page import="com.galphi.vo.Param"%>
 <%@page import="com.galphi.dao.BookCommentDAO"%>
 <%@page import="com.galphi.service.BookCommentService"%>
@@ -21,13 +23,14 @@
 	int idx = Integer.parseInt(request.getParameter("idx"));
 	String memo = request.getParameter("memo");
 	float score = Float.parseFloat(request.getParameter("score"));
-	
 	//out.println(idx);
 	Param param = new Param(idx, memo, score);
 	BookCommentService.getInstance().updateComment(param);
-
-	pageContext.forward("insertcomment.jsp");
 	
+	int ISBN = Integer.parseInt(request.getParameter("ISBN"));
+	request.setAttribute("ISBN", ISBN);
+	
+	pageContext.forward("selectByISBN.jsp");
 %>
 
 

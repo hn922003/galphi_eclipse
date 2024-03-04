@@ -15,13 +15,11 @@
 
 
 <%
-	out.println("<script>");
 	request.setCharacterEncoding("UTF-8");
 	int idx = Integer.parseInt(request.getParameter("idx"));
 	// out.println(idx);
 	
 	BookCommentVO co = BookCommentService.getInstance().selectcommentByIdx(idx);
-	out.println("</script>");
 
 	request.setAttribute("co", co);
 	pageContext.forward("updatecomment.jsp");
