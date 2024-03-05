@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galphi.vo.BookVO">
+
+	<!-- 메인글 1건을 얻어온다. -->
+	<select id="selectByISBN" parameterType="int" resultType="vo">
+		select * from book where ISBN = #{ISBN} 
+	</select>
+	
+	<!-- 1페이지 분량의 오늘의 추천 도서를 얻어온다. -->
+	<select id="selectDailyList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book where avg > 8 order by DBMS_RANDOM.RANDOM
+			) TT where rownum <= 10
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+		
+	<!-- 1페이지 분량의 베스트 도서를 얻어온다. -->
+	<select id="selectBestList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book order by avg desc
+			) TT where rownum <= 10
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+	
+	<!-- 신간도서 전체 개수를 얻어온다. -->
+	<select id="selectNewCount" resultType="int">
+		select count(*) from book where TO_DATE(pDate) > sysdate - 90
+	</select>
+		
+	<!-- 1페이지 분량의 신간 도서를 얻어온다. -->
+	<select id="selectNewList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book where TO_DATE(pDate) > sysdate - 90 order by pdate desc
+			) TT where rownum <= #{endNo} 
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+	
+	<!-- 메인글 전체 개수를 얻어온다. -->
+	<select id="selectCount" resultType="int">
+		select count(*) from book 
+	</select>
+	
+	<!-- 1페이지 분량의 메인글을 얻어온다. -->
+	<select id="selectList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book order by ISBN desc
+			) TT where rownum <= #{endNo} 
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

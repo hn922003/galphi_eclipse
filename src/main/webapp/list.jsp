@@ -13,25 +13,28 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	int currentPage = 1;
+	
 	try {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	} catch (NumberFormatException e) {
 		
 	}
+	String list = request.getParameter("list");
 	
 //	1페이지 분량의 메인글을 얻어온다.
 	BookList bookDailyList = BookService.getInstance().selectDailyList(currentPage);
 	BookList bookBestList = BookService.getInstance().selectBestList(currentPage);
 	BookList bookNewList = BookService.getInstance().selectNewList(currentPage);
+	BookList bookCategoryList = BookService.getInstance().selectCategoryList(currentPage, list);
 	
 	request.setAttribute("bookDailyList", bookDailyList); // 메인글을 request 영역에 저장한다.
 	request.setAttribute("bookBestList", bookBestList);
 	request.setAttribute("bookNewList", bookNewList);
+	request.setAttribute("bookCategoryList", bookCategoryList);
 	request.setAttribute("currentPage", currentPage);
 	
-	String list = request.getParameter("list");
-//	out.println(list);
-
+	out.println(list);
+	
 	pageContext.forward("list" + list + "View.jsp");
 %>
 

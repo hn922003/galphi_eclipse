@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.galphi.dao.BookDAO;
 import com.galphi.vo.BookVO;
+import com.galphi.vo.Param;
 
 public class BookDAO {
 
@@ -52,6 +52,18 @@ public class BookDAO {
 	public int selectNewCount(SqlSession mapper) {
 		System.out.println("BookDAO 클래스의 selectNewCount() 메소드 실행");
 		return (int) mapper.selectOne("selectNewCount");
+	}
+	
+//	카테고리별 개수 가져오기
+	public int selectCategoryCount(SqlSession mapper, String list) {
+		System.out.println("BookDAO 클래스의 selectCategoryCount() 메소드 실행");
+		return (int) mapper.selectOne("selectCategoryCount", list);
+	}
+	
+//	카테고리별 한 페이지 가져오기
+	public ArrayList<BookVO> selectCategoryList(SqlSession mapper, Param param) {
+		System.out.println("BookDAO 클래스의 selectCategoryList() 메소드 실행");
+		return (ArrayList<BookVO>) mapper.selectList("selectCategoryList", param);
 	}
 	
 // 	BookService 클래스에서 호출되는 mapper와 1페이지 분량의 시작 인덱스, 끝 인덱스가 저장된

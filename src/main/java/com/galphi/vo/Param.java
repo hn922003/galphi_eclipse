@@ -4,6 +4,9 @@ public class Param {
 	private int idx;
 	private String memo;
 	private Float score;
+	private int startNo;
+	private int endNo;
+	private String list;
 	
 	public Param() {	}
 
@@ -12,6 +15,13 @@ public class Param {
 		this.idx = idx;
 		this.memo = memo;
 		this.score = score;
+	}
+	
+	public Param(int startNo, int endNo, String list) {
+		super();
+		this.startNo = startNo;
+		this.endNo = endNo;
+		this.list = list;
 	}
 
 	public int getIdx() {
@@ -38,10 +48,34 @@ public class Param {
 		this.score = score;
 	}
 
+	public int getStartNo() {
+		return startNo;
+	}
+
+	public void setStartNo(int startNo) {
+		this.startNo = startNo;
+	}
+
+	public int getEndNo() {
+		return endNo;
+	}
+
+	public void setEndNo(int endNo) {
+		this.endNo = endNo;
+	}
+
+	public String getList() {
+		return list;
+	}
+
+	public void setList(String list) {
+		this.list = list;
+	}
+
 	@Override
 	public String toString() {
-		return "Param [idx=" + idx + ", memo=" + memo + ", score=" + score + "]";
+		return "Param [idx=" + idx + ", memo=" + memo + ", score=" + score + ", startNo=" + startNo + ", endNo=" + endNo
+				+ ", list=" + list + "]";
 	}
-	
 	
 }

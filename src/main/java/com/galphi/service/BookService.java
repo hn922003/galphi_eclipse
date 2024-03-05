@@ -1,6 +1,5 @@
 package com.galphi.service;
 
-import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +8,7 @@ import com.galphi.dao.BookDAO;
 import com.galphi.mybatis.MySession;
 import com.galphi.vo.BookList;
 import com.galphi.vo.BookVO;
+import com.galphi.vo.Param;
 
 public class BookService {
 
@@ -91,6 +91,33 @@ public class BookService {
 		
 		mapper.close();
 		return bookNewList;
+	}
+	
+	public BookList selectCategoryList(int currentPage, String list) {
+		System.out.println("BookService 클래스의 selectCategoryList() 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		try {
+			list = list.toLowerCase();
+		} catch (Exception e) {
+			
+		}
+		
+		int pageSize = 10;
+		int totalCount = BookDAO.getInstance().selectCategoryCount(mapper, list);
+		System.out.println(totalCount);
+		System.out.println(list);
+	
+		BookList bookCategoryList = new BookList(pageSize, totalCount, currentPage);
+		int startNo = bookCategoryList.getStartNo();
+		int endNo = bookCategoryList.getEndNo();
+		Param param = new Param(startNo, endNo, list);
+		System.out.println(startNo);
+		System.out.println(endNo);
+		System.out.println(list);
+		bookCategoryList.setList(BookDAO.getInstance().selectCategoryList(mapper, param));
+		
+		mapper.close();
+		return bookCategoryList;
 	}
 	
 }
