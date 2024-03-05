@@ -15,21 +15,20 @@
 
 <link rel="stylesheet" href="./css/view.css">
 </head>
-<body>
 	<div class="wrapper">
 		<div class="header">
 			<div class="logo">logo</div>
 			<div class="search">
-				<form method="post" name="search-requirement" action="searchbbs.jsp">
-					<select class="search-requirement" name="searchField">
-						<option value="title">제목</option>
-						<option value="author">저자</option>
-						<option value="title_author">제목+저자</option>
+				<form action="list.jsp" method="post" name="search-requirement">
+					<select class="search-requirement" name="category">
+						<option>제목</option>
+						<option>저자</option>
+						<option>제목+저자</option>
 					</select>
+					<input type="text" class="input-search" placeholder="검색어 입력" name="item">
+					<input type="hidden" name="list" value="Search"/>
+					<input class="button button1" type="submit" value="검색"/>
 				</form>
-				<input type="text" class="input-search" placeholder="검색어 입력" name="searchText">
-				<button type="button" id="search_button"
-					onclick="location.href='search'" class="btn-success">검색</button>
 			</div>
 
 			<div class="login">

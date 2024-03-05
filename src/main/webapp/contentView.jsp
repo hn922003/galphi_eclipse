@@ -15,29 +15,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link href="css/contentViewStyles.css" rel="stylesheet" />
-<<<<<<< HEAD
 <script type="text/javascript" src="./js/register.js" defer="defer"></script>
-
-=======
 <link href="css/view.css" rel="stylesheet" />
->>>>>>> 5b3280479cb21718232c16b01780fb3b5d66858c
 </head>
 <body>
-
 	<div class="wrapper">
 		<div class="header">
 			<div class="logo">logo</div>
 			<div class="search">
-				<form method="post" name="search-requirement" action="searchbbs.jsp">
-					<select class="search-requirement" name="searchField">
-						<option value="title">제목</option>
-						<option value="author">저자</option>
-						<option value="title_author">제목+저자</option>
+				<form action="list.jsp" method="post" name="search-requirement">
+					<select class="search-requirement" name="category">
+						<option>제목</option>
+						<option>저자</option>
+						<option>제목+저자</option>
 					</select>
+					<input type="text" class="input-search" placeholder="검색어 입력" name="item">
+					<input type="hidden" name="list" value="Search"/>
+					<input class="button button1" type="submit" value="검색"/>
 				</form>
-				<input type="text" class="input-search" placeholder="검색어 입력" name="searchText">
-				<button type="button" id="search_button"
-					onclick="location.href='search'" class="btn-success">검색</button>
 			</div>
 
 			<div class="login">
@@ -122,6 +117,10 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	int ISBN = Integer.parseInt(request.getParameter("ISBN"));	
+<<<<<<< HEAD
+=======
+	// out.print(ISBN);
+>>>>>>> 35159c19ad24973ac257dd7904acd63a893c53db
 	BookCommentList bookCommentList = BookCommentService.getInstance().selectCommentList(ISBN);
 	request.setAttribute("bookCommentList", bookCommentList);
 %>

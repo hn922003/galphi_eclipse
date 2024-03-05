@@ -38,12 +38,6 @@
 			</div>
 		</div>
 
-			<div class="login">
-				<button type="button" id="login_button"
-					onclick="location.href='login'">로그인</button>
-			</div>
-		</div>
-
 		<div class="main">
 			<div class="Category">
 				<button type="button" class="cate_list" onclick="cate_list(this);">카테고리</button>
@@ -79,7 +73,7 @@
 			<table class="table table-borderless">
 				<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
 				<jsp:useBean id="date" class="java.util.Date" />
-				<c:set var="list" value="${bookCategoryList.list}" />
+				<c:set var="list" value="${bookList.list}" />
 				<c:if test="${list.size() == 0}">
 					<tr class="table-danger">
 						<td colspan="5"><marquee>테이블에 저장된 글이 없습니다.</marquee></td>
@@ -117,92 +111,54 @@
 					<!-- 페이지 이동 버튼 -->
 					<tr>
 						<td class="align-middle text-center" colspan="5">
-							<!-- 처음으로 -->
-							<c:if test="${bookCategoryList.currentPage > 1}">
-								<button 
-									class="button button1"
-									type="button" 
-									title="첫 페이지로 이동합니다."
-									onclick="location.href='list.jsp?list=Child&currentPage=1'"
-								>처음</button>
-							</c:if>
-							<c:if test="${bookCategoryList.currentPage <= 1}">
-								<button 
-									class="button button2"
-									type="button" 
-									title="이미 첫 페이지 입니다."
-									disabled="disabled"
-								>처음</button>
-							</c:if>
-							<!-- 10페이지 앞으로 -->
-							<c:if test="${bookCategoryList.startPage > 1}">
-								<button
-									class="button button1"
-									type="button"
-									title="이전 10페이지로 이동합니다."
-									onclick="location.href='list.jsp?list=Child&currentPage=${bookCategoryList.startPage - 1}'"
-								>이전</button>
-							</c:if>
-							<c:if test="${bookCategoryList.startPage <= 1}">
-								<button
-									class="button button2"
-									type="button"
-									disabled="disabled"
+							<!-- 처음으로 --> 
+							<c:if test="${bookList.currentPage > 1}">
+								<button class="button button1" type="submit"
+									title="첫 페이지로 이동합니다." onclick="location.href='list.jsp?list=Search&currentPage=1'">처음</button>
+							</c:if> 
+							<c:if test="${bookList.currentPage <= 1}">
+								<button class="button button2" type="button"
+									title="이미 첫 페이지 입니다." disabled="disabled">처음</button>
+							</c:if> 
+							<!-- 10페이지 앞으로 --> 
+							<c:if test="${bookList.startPage > 1}">
+								<button class="button button1" type="submit" title="이전 10페이지로 이동합니다."
+									onclick="location.href='list.jsp?list=Search&currentPage=${bookList.startPage - 1}'">이전</button>
+							</c:if> 
+							<c:if test="${bookList.startPage <= 1}">
+								<button class="button button2" type="button" disabled="disabled"
 									title="이미 첫 10 페이지 입니다."
-								>이전</button>
-							</c:if>
-						
-							<!-- 페이지 이동 버튼 -->
-							<c:forEach var="i" begin="${bookCategoryList.startPage}" end="${bookCategoryList.endPage}" step="1">
+									>이전</button>
+							</c:if> 
 							
-							<c:if test="${bookCategoryList.currentPage == i}">
-								<button
-									class="button button2"
-									type="button"
-									disabled="disabled"
-								>${i}</button>
-							</c:if>
-			
-							<c:if test="${bookCategoryList.currentPage != i}">
-								<button
-									class="button button1"
-									type="button"
-									onclick="location.href='list.jsp?list=Child&currentPage=${i}'"
-								>${i}</button>
-							</c:if>
-							
-							</c:forEach>
-						
-							<!-- 10페이지 뒤로 -->
-							<c:if test="${bookCategoryList.endPage < bookCategoryList.totalPage}">
-								<button
-									class="button button1"
-									type="button"
+							<!-- 페이지 이동 버튼 --> 
+							<c:forEach var="i" begin="${bookList.startPage}" end="${bookList.endPage}" step="1">
+								<c:if test="${bookList.currentPage == i}">
+									<button class="button button2" type="button" disabled="disabled">${i}</button>
+								</c:if>
+
+								<c:if test="${bookList.currentPage != i}">
+									<button class="button button1" type="button"
+										onclick="location.href='list.jsp?list=Search&currentPage=${i}'">${i}</button>
+								</c:if>
+							</c:forEach> 
+							<!-- 10페이지 뒤로 --> 
+							<c:if test="${bookList.endPage < bookList.totalPage}">
+								<button class="button button1" type="submit"
 									title="다음 10페이지로 이동합니다."
-									onclick="location.href='list.jsp?list=Child&currentPage=${bookCategoryList.endPage + 1}'"
-								>다음</button>
-							</c:if>
-				
-							<c:if test="${bookCategoryList.endPage >= bookCategoryList.totalPage}">
-								<button
-									class="button button2"
-									type="button"
-									disabled="disabled"
-									title="이미 마지막 10 페이지 입니다."
-								>다음</button>
-							</c:if>
-							
-							<!-- 마지막으로 -->
-							<c:if test="${bookCategoryList.currentPage < bookCategoryList.totalPage}">
-								<button
-									class="button button1"
-									type="button"
-									title="마지막 페이지로 이동합니다."
-									onclick="location.href='list.jsp?list=Child&currentPage=${bookCategoryList.totalPage}'"
-								>마지막</button>
+									onclick="location.href='list.jsp?list=Search&currentPage=${bookList.endPage + 1}'">다음</button>
+							</c:if> 
+							<c:if test="${bookList.endPage >= bookList.totalPage}">
+								<button class="button button2" type="button" disabled="disabled"
+									title="이미 마지막 10 페이지 입니다.">다음</button>
+							</c:if> 
+							<!-- 마지막으로 --> 
+							<c:if test="${bookList.currentPage < bookList.totalPage}">
+								<button class="button button1" type="submit" title="마지막 페이지로 이동합니다."
+									onclick="location.href='list.jsp?list=Search&currentPage=${bookList.totalPage}'">마지막</button>
 							</c:if>
 						</td>
-				 	 </tr>	
+					</tr>
 				</c:if>
 			</table>
 		</div>

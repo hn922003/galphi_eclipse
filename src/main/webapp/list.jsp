@@ -20,6 +20,26 @@
 		
 	}
 	String list = request.getParameter("list");
+
+//	검색
+	String category = request.getParameter("category");
+	String item = request.getParameter("item");
+	
+	if (item != null) {
+		session.setAttribute("category", category);
+		item = item.trim().length() == 0 ? "" : item;
+		session.setAttribute("item", item);
+	} else {
+		category = (String) session.getAttribute("category");
+		item = (String) session.getAttribute("item");
+	}
+	
+	BookList bookList = null;
+	if (item == null || item.trim().length() == 0) {
+		bookList = BookService.getInstance().selectList(currentPage);
+	} else {
+		bookList = BookService.getInstance().selectList(currentPage, category, item);
+	}
 	
 //	1페이지 분량의 메인글을 얻어온다.
 	BookList bookDailyList = BookService.getInstance().selectDailyList(currentPage);
@@ -32,8 +52,10 @@
 	request.setAttribute("bookNewList", bookNewList);
 	request.setAttribute("bookCategoryList", bookCategoryList);
 	request.setAttribute("currentPage", currentPage);
+	request.setAttribute("bookList", bookList);
+	request.setAttribute("enter", "\r\n");
 	
-	out.println(list);
+//	out.println(list);
 	
 	pageContext.forward("list" + list + "View.jsp");
 %>
