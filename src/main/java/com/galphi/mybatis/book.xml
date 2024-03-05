@@ -67,7 +67,7 @@
 	</select>
 	
 	<!-- 1페이지 분량의 카테고리 소설 도서를 얻어온다. -->
-	<select id="selectCategoryList" parameterType="galphi.vo.Param" resultType="vo">
+	<select id="selectCategoryList" parameterType="com.galphi.vo.Param" resultType="vo">
 		<![CDATA[
 		select * from (
 			select rownum rnum, TT.* from (

@@ -118,12 +118,10 @@
 		</div>
 	</div>
 
-	<%-- ${vo.ISBN} --%>
 	<!-- 댓글 출력 -->	
 <%
 	request.setCharacterEncoding("UTF-8");
 	int ISBN = Integer.parseInt(request.getParameter("ISBN"));	
-	out.print(ISBN);
 	BookCommentList bookCommentList = BookCommentService.getInstance().selectCommentList(ISBN);
 	request.setAttribute("bookCommentList", bookCommentList);
 %>
@@ -141,32 +139,55 @@
 		<c:if test="${comment.size() != 0}">
 		<c:forEach var="co" items="${comment}">
 		<tr class="table-primary">
-			<td colspan="4">
-				${co.idx}. 
+			<td class="clearfix" colspan="4">
 				<c:set var="nick" value="${fn:replace(co.nick, '<', '&lt;')}"/>
 				<c:set var="nick" value="${fn:replace(nick, '>', '&gt;')}"/>
-				${co.nick}님이
-				<fmt:formatDate value="${co.wDate}" pattern="yy년MM월dd일(E)"/>에 남긴글
+				<b>${co.nick}</b>님이
+				<small>
+					<fmt:formatDate value="${co.wDate}" pattern="yy.MM.dd"/>
+				</small>
+				<div class="d-inline">
+					<button
+						class="btn btn-sm text-primary"
+						type="button"
+						style="font-size: 10px; margin-right: -15px;"
+						title="후기수정"
+						onclick="location.href='updatecommentOK.jsp?idx=${co.idx}'">
+						<i class="bi bi-wrench-adjustable"></i>
+					</button>
+					<button
+						class="btn btn-sm text-danger"
+						type="button"
+						style="font-size: 10px;"
+						title="후기삭제"
+						onclick="location.href='deletecommentOK.jsp?idx=${co.idx}'">
+						<i class="bi bi-x-circle-fill"></i>
+					</button>	
+				</div>
 				<c:set var="memo" value="${fn:replace(co.memo, '<', '&lt;')}"/>
 				<c:set var="memo" value="${fn:replace(memo, '>', '&gt;')}"/>
 				<c:set var="memo" value="${fn:replace(memo, enter, '<br/>')}"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평점: ${co.score}점<br/>
+				<div class="d-inline-flex float-end">
+					<!-- 평점 만큼 별의 개수를 적어준다 온별 반별 -->
+					<c:set var="fillstars" value="${co.score / 2}"/>
+					<c:set var="halfStars" value="${co.score % 2}"/>
+					<c:forEach var="fillStar" begin="1" end="${fillstars}" step="1" >
+						<i class="bi bi-star-fill"></i>
+					</c:forEach>
+					<c:if test="${halfStars != 0}">
+						<i class="bi bi-star-half"></i>
+						<c:set var="halfStars" value="1"/>
+					</c:if>
+					<c:forEach var="emptyStar" begin="1" end="${5 - (fillstars + halfStars)}" step="1" >
+						<i class="bi bi-star"></i>
+					</c:forEach>
+				<%-- 평점: ${co.score}점 --%>
+				
+				</div>
+				<br/>
 				${co.memo}<br/>
 				<!-- <div class="align-middle d-flex justify-content-end"> -->
-				<div align="right">
-					<input 
-						class="btn btn-outline-primary btn-sm" 
-						type="button" 
-						value="댓글수정" 
-						style="font-size: 13px;"
-						onclick="location.href='updatecommentOK.jsp?idx=${co.idx}'"/>
-					<input 
-						class="btn btn-outline-danger btn-sm" 
-						type="button" 
-						value="댓글삭제" 
-						style="font-size: 13px;"
-						onclick="location.href='deletecommentOK.jsp?idx=${co.idx}'"/>
-				</div>
+				
 			</td>
 		</tr>
 		</c:forEach>
