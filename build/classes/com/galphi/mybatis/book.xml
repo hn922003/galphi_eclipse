@@ -61,6 +61,22 @@
 		]]>
 	</select>
 	
+	<!-- 카테고리 소설 전체 개수를 얻어온다. -->
+	<select id="selectCategoryCount" parameterType="String" resultType="int">
+		select count(*) from book where category = #{list}
+	</select>
+	
+	<!-- 1페이지 분량의 카테고리 소설 도서를 얻어온다. -->
+	<select id="selectCategoryList" parameterType="galphi.vo.Param" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book where category = #{list}
+			) TT where rownum <= #{endNo}
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+	
 </mapper>
 
 

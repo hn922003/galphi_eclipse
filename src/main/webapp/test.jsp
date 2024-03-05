@@ -11,7 +11,6 @@
 </head>
 <body>
 
-
 <form action="./selectByISBN.jsp" method="post">
 	<input type="text" name="ISBN">
 	<button type="submit">이동</button>
@@ -28,8 +27,6 @@
 	<input type="hidden" name="list" value="Daily">
 	<button type="submit">추천</button>
 </form>
-
-
 
 </body>
 </html>
