@@ -13,7 +13,7 @@
 	request.setCharacterEncoding("UTF-8");
 	int ISBN = Integer.parseInt(request.getParameter("ISBN"));
 //	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	out.println(ISBN);
+//	out.println(ISBN);
 //	메인글 1건을 얻어오는 메소드를 호출한다.
 	BookVO vo = BookService.getInstance().selectByISBN(ISBN);
 //	out.println(vo);

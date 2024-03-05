@@ -7,6 +7,22 @@
 		select * from book where ISBN = #{ISBN} 
 	</select>
 	
+	<!-- 메인글 전체 개수를 얻어온다. -->
+	<select id="selectCount" resultType="int">
+		select count(*) from book 
+	</select>
+	
+	<!-- 1페이지 분량의 메인글을 얻어온다. -->
+	<select id="selectList" parameterType="java.util.HashMap" resultType="vo">
+		<![CDATA[
+		select * from (
+			select rownum rnum, TT.* from (
+				select * from book
+			) TT where rownum <= #{endNo} 
+		) where rnum >= #{startNo}
+		]]>
+	</select>
+	
 	<!-- 1페이지 분량의 오늘의 추천 도서를 얻어온다. -->
 	<select id="selectDailyList" parameterType="java.util.HashMap" resultType="vo">
 		<![CDATA[
@@ -45,29 +61,13 @@
 		]]>
 	</select>
 	
-	<!-- 메인글 전체 개수를 얻어온다. -->
-	<select id="selectCount" resultType="int">
-		select count(*) from book 
-	</select>
-	
-	<!-- 1페이지 분량의 메인글을 얻어온다. -->
-	<select id="selectList" parameterType="java.util.HashMap" resultType="vo">
-		<![CDATA[
-		select * from (
-			select rownum rnum, TT.* from (
-				select * from book order by ISBN desc
-			) TT where rownum <= #{endNo} 
-		) where rnum >= #{startNo}
-		]]>
-	</select>
-	
 	<!-- 카테고리 소설 전체 개수를 얻어온다. -->
 	<select id="selectCategoryCount" parameterType="String" resultType="int">
 		select count(*) from book where category = #{list}
 	</select>
 	
 	<!-- 1페이지 분량의 카테고리 소설 도서를 얻어온다. -->
-	<select id="selectCategoryList" parameterType="galphi.vo.Param" resultType="vo">
+	<select id="selectCategoryList" parameterType="com.galphi.vo.Param" resultType="vo">
 		<![CDATA[
 		select * from (
 			select rownum rnum, TT.* from (
@@ -77,6 +77,37 @@
 		]]>
 	</select>
 	
+	<select id="selectCountMulti" parameterType="com.galphi.vo.Param" resultType="int">
+		select count(*) from book where
+		<if test='category == "제목"'>
+			title like '%${item}%'
+		</if>
+		<if test='category == "저자"'>
+			author like '%${item}%'
+		</if>
+		<if test='category == "제목+저자"'>
+			title like '%${item}%' or author like '%${item}%'
+		</if>
+	</select>
+	
+	<select id="selectListMulti" parameterType="com.galphi.vo.Param" resultType="vo">
+			select * from (
+				select rownum rnum, TT.* from (
+					select * from book where
+						<if test='category == "제목"'>
+							title like '%${item}%'
+						</if>
+						<if test='category == "저자"'>
+							author like '%${item}%'
+						</if>
+						<if test='category == "제목+저자"'>
+							title like '%${item}%' or author like '%${item}%'
+						</if>
+		<![CDATA[
+				) TT where rownum <= #{endNo} 
+			) where rnum >= #{startNo}
+		]]>
+	</select>
 </mapper>
 
 

@@ -17,8 +17,8 @@ public class BookVO {
 	   
 	   public BookVO() { }
 		
-		public BookVO(int iSBN, String title, String author, String publisher, Date pDate, String category, float avg,
-				String chap, String summary, String review) {
+	   public BookVO(int iSBN, String title, String author, String publisher, Date pDate, String category, float avg,
+			   String chap, String summary, String review) {
 			super();
 			ISBN = iSBN;
 			this.title = title;

@@ -16,20 +16,20 @@
 <link rel="stylesheet" href="./css/view.css">
 </head>
 <body>
-<div class="wrapper">
+	<div class="wrapper">
 		<div class="header">
 			<div class="logo">logo</div>
 			<div class="search">
-				<form method="post" name="search-requirement" action="searchbbs.jsp">
-					<select class="search-requirement" name="searchField">
-						<option value="title">제목</option>
-						<option value="author">저자</option>
-						<option value="title_author">제목+저자</option>
+				<form action="list.jsp" method="post" name="search-requirement">
+					<select class="search-requirement" name="category">
+						<option>제목</option>
+						<option>저자</option>
+						<option>제목+저자</option>
 					</select>
+					<input type="text" class="input-search" placeholder="검색어 입력" name="item">
+					<input type="hidden" name="list" value="Search"/>
+					<input class="button button1" type="submit" value="검색"/>
 				</form>
-				<input type="text" class="input-search" placeholder="검색어 입력" name="searchText">
-				<button type="button" id="search_button"
-					onclick="location.href='search'" class="btn-success">검색</button>
 			</div>
 
 			<div class="login">
@@ -69,45 +69,45 @@
 			</div>
 		</div>
 	
-	<div class="container mt-3">
-		<table class="table table-borderless">
-			<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
-			<jsp:useBean id="date" class="java.util.Date"/>
-			<c:set var="list" value="${bookDailyList.list}"/>
-			<c:if test="${list.size() == 0}">
-			<tr class="table-danger">
-			 	<td colspan="5">
-			 		<marquee>테이블에 저장된 글이 없습니다.</marquee>
-			 	</td>
-			</tr>
-			</c:if>
-			<c:if test="${list.size() != 0}">
-			<c:forEach var="vo" items="${list}">
-			<%-- ${vo} --%>
-			<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd"/>
-			<table class="table-borderless ms-sm-5" style="margin: 10px;">
-			<tr>
-		    	<td rowspan="3" style="width: 150px; height: 200px;"><img alt="title" src="./images/${vo.title}.jpg" style="width: 200px; height: 267px;"></td>
-		    	<td>
-		    		<h3>
-		    			<a href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}">
-			 				&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%>
-			 			</a>
-		    		</h3>
-		    	</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&nbsp;&nbsp;${vo.author}&nbsp;&nbsp;•&nbsp;&nbsp;${vo.publisher}&nbsp;&nbsp;•&nbsp;&nbsp;${pDate}</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&nbsp;&nbsp;평점: ${vo.avg}</td>
-			</tr>
+		<div class="container mt-3">
+			<table class="table table-borderless">
+				<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
+				<jsp:useBean id="date" class="java.util.Date"/>
+				<c:set var="list" value="${bookDailyList.list}"/>
+				<c:if test="${list.size() == 0}">
+				<tr class="table-danger">
+				 	<td colspan="5">
+				 		<marquee>테이블에 저장된 글이 없습니다.</marquee>
+				 	</td>
+				</tr>
+				</c:if>
+				<c:if test="${list.size() != 0}">
+				<c:forEach var="vo" items="${list}">
+				<%-- ${vo} --%>
+				<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd"/>
+				<table class="table-borderless ms-sm-5" style="margin: 10px;">
+				<tr>
+			    	<td rowspan="3" style="width: 150px; height: 200px;"><img alt="title" src="./images/${vo.title}.jpg" style="width: 200px; height: 267px;"></td>
+			    	<td>
+			    		<h3>
+			    			<a href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}">
+				 				&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%>
+				 			</a>
+			    		</h3>
+			    	</td>
+				</tr>
+				<tr>
+					<td>&nbsp;&nbsp;&nbsp;${vo.author}&nbsp;&nbsp;•&nbsp;&nbsp;${vo.publisher}&nbsp;&nbsp;•&nbsp;&nbsp;${pDate}</td>
+				</tr>
+				<tr>
+					<td>&nbsp;&nbsp;&nbsp;평점: ${vo.avg}</td>
+				</tr>
+				</table>
+				<br/><hr/><br/>
+				</c:forEach>
+				</c:if>
 			</table>
-			<br/><hr/><br/>
-			</c:forEach>
-			</c:if>
-		</table>
+		</div>
 	</div>
-
 </body>
 </html>

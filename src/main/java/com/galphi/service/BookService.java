@@ -24,7 +24,7 @@ public class BookService {
 		// System.out.println(ISBN);
 		SqlSession mapper = MySession.getSession();
 		BookVO vo = BookDAO.getInstance().selectByISBN(mapper, ISBN);
-		System.out.println(vo);
+		// System.out.println(vo);
 		mapper.close();
 		return vo;
 	}
@@ -61,6 +61,24 @@ public class BookService {
 		
 		mapper.close();
 		return bookDailyList;
+	}
+	
+//	전체 목록 가져오기
+	public BookList selectList(int currentPage) {
+		System.out.println("BookService 클래스의 selectList() 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		int pageSize = 10;
+		int totalCount = BookDAO.getInstance().selectCount(mapper);
+		// System.out.println(totalCount);
+		BookList bookList = new BookList(pageSize, totalCount, currentPage);
+		HashMap<String, Integer> hmap = new HashMap<String, Integer>();
+		hmap.put("startNo", bookList.getStartNo());
+		hmap.put("endNo", bookList.getEndNo());
+		bookList.setList(BookDAO.getInstance().selectList(mapper, hmap));
+		// System.out.println(bookList);
+		
+		mapper.close();
+		return bookList;
 	}
 	
 	public BookList selectBestList(int currentPage) {
@@ -104,20 +122,40 @@ public class BookService {
 		
 		int pageSize = 10;
 		int totalCount = BookDAO.getInstance().selectCategoryCount(mapper, list);
-		System.out.println(totalCount);
-		System.out.println(list);
+		// System.out.println(totalCount);
+		// System.out.println(list);
 	
 		BookList bookCategoryList = new BookList(pageSize, totalCount, currentPage);
 		int startNo = bookCategoryList.getStartNo();
 		int endNo = bookCategoryList.getEndNo();
 		Param param = new Param(startNo, endNo, list);
-		System.out.println(startNo);
-		System.out.println(endNo);
-		System.out.println(list);
+		// System.out.println(startNo);
+		// System.out.println(endNo);
+		// System.out.println(list);
 		bookCategoryList.setList(BookDAO.getInstance().selectCategoryList(mapper, param));
 		
 		mapper.close();
 		return bookCategoryList;
+	}
+	
+	public BookList selectList(int currentPage, String category, String item) {
+		System.out.println("BookService 클래스의 selectList(int, String, String) 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		BookList bookList = null;
+		int pageSize = 10;
+		// 카테고리에 따른 검색어를 포함하는 글의 개수를 얻어온다.
+		// 카테고리에 따른 검색어가 포함되었나 조건을 세워야 하기 때문에 Param 클래스 객체를 사용한다.
+		Param param = new Param();
+		param.setCategory(category);
+		param.setItem(item);
+		int totalCount = BookDAO.getInstance().selectCount(mapper, param); 
+		// System.out.println(totalCount);
+		bookList = new BookList(pageSize, totalCount, currentPage);
+		param.setStartNo(bookList.getStartNo());
+		param.setEndNo(bookList.getEndNo());
+		bookList.setList(BookDAO.getInstance().selectList(mapper, param));
+
+		return bookList;
 	}
 	
 }

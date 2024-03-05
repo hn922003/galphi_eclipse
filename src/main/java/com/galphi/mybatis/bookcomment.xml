@@ -26,8 +26,6 @@
 	</delete>
 	
 <!-- 
-	
-	
 	댓글 개수를 얻어온다.
 	<select id="commentCount" parameterType="int" resultType="int">
 		select count(*) from freeboardcomment where gup = #{idx}

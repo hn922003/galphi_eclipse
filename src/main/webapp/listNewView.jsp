@@ -20,16 +20,16 @@
 		<div class="header">
 			<div class="logo">logo</div>
 			<div class="search">
-				<form method="post" name="search-requirement" action="searchbbs.jsp">
-					<select class="search-requirement" name="searchField">
-						<option value="title">제목</option>
-						<option value="author">저자</option>
-						<option value="title_author">제목+저자</option>
+				<form action="list.jsp" method="post" name="search-requirement">
+					<select class="search-requirement" name="category">
+						<option>제목</option>
+						<option>저자</option>
+						<option>제목+저자</option>
 					</select>
+					<input type="text" class="input-search" placeholder="검색어 입력" name="item">
+					<input type="hidden" name="list" value="Search"/>
+					<input class="button button1" type="submit" value="검색"/>
 				</form>
-				<input type="text" class="input-search" placeholder="검색어 입력" name="searchText">
-				<button type="button" id="search_button"
-					onclick="location.href='search'" class="btn-success">검색</button>
 			</div>
 
 			<div class="login">
@@ -68,54 +68,54 @@
 				</script>
 			</div>
 		</div>
-
+	</div>
 	<div class="container mt-3">
 		<table class="table table-borderless">
 			<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
 			<jsp:useBean id="date" class="java.util.Date"/>
 			<c:set var="list" value="${bookNewList.list}"/>
 			<c:if test="${list.size() == 0}">
-			<tr class="table-danger">
-		 		<td colspan="5">
-		 			<marquee>테이블에 저장된 글이 없습니다.</marquee>
-		 		</td>
-			</tr>
+				<tr class="table-danger">
+			 		<td colspan="5">
+			 			<marquee>테이블에 저장된 글이 없습니다.</marquee>
+			 		</td>
+				</tr>
 			</c:if>
 			<c:if test="${list.size() != 0}">
-			<c:forEach var="vo" items="${list}">
-			<%-- ${vo} --%>
-			<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd"/>
-			<table class="table-borderless ms-sm-5" style="margin: 10px;">
-			<tr>
-	    		<td rowspan="3" style="width: 150px; height: 200px;"><img alt="title" src="./images/${vo.title}.jpg" style="width: 200px; height: 267px;"></td>
-	  		  	<td>
-	    			<h3>
-	    				<a href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}">
-		 					&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%>
-		 				</a>
-	    			</h3>
-	    		</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&nbsp;&nbsp;${vo.author}&nbsp;&nbsp;•&nbsp;&nbsp;${vo.publisher}&nbsp;&nbsp;•&nbsp;&nbsp;${pDate}</td>
-			</tr>
-			<tr>
-				<td>&nbsp;&nbsp;&nbsp;평점: ${vo.avg}</td>
-			</tr>
-			</table>
-			<br/><hr/><br/>
-			</c:forEach>
+				<c:forEach var="vo" items="${list}">
+				<%-- ${vo} --%>
+				<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd"/>
+				<table class="table-borderless ms-sm-5" style="margin: 10px;">
+					<tr>
+			    		<td rowspan="3" style="width: 150px; height: 200px;"><img alt="title" src="./images/${vo.title}.jpg" style="width: 200px; height: 267px;"></td>
+			  		  	<td>
+			    			<h3>
+			    				<a href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}">
+				 					&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%>
+				 				</a>
+			    			</h3>
+			    		</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;${vo.author}&nbsp;&nbsp;•&nbsp;&nbsp;${vo.publisher}&nbsp;&nbsp;•&nbsp;&nbsp;${pDate}</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;평점: ${vo.avg}</td>
+					</tr>
+				</table>
+				<br/><hr/><br/>
+				</c:forEach>
 			
-			<!-- 페이지 이동 버튼 -->
-			<tr>
-				<td class="align-middle text-center" colspan="5">
+				<!-- 페이지 이동 버튼 -->
+				<tr>
+					<td class="align-middle text-center" colspan="5">
 					<!-- 처음으로 -->
 					<c:if test="${bookNewList.currentPage > 1}">
 						<button 
 							class="button button1"
 							type="button" 
 							title="첫 페이지로 이동합니다."
-							onclick="location.href='?currentPage=1'"
+							onclick="location.href='list.jsp?list=New&currentPage=1'"
 						>처음</button>
 					</c:if>
 					<c:if test="${bookNewList.currentPage <= 1}">
@@ -132,7 +132,7 @@
 							class="button button1"
 							type="button"
 							title="이전 10페이지로 이동합니다."
-							onclick="location.href='?currentPage=${bookNewList.startPage - 1}'"
+							onclick="location.href='list.jsp?list=New&currentPage=${bookNewList.startPage - 1}'"
 						>이전</button>
 					</c:if>
 					<c:if test="${bookNewList.startPage <= 1}">
@@ -143,38 +143,37 @@
 							title="이미 첫 10 페이지 입니다."
 						>이전</button>
 					</c:if>
-				
+			
 					<!-- 페이지 이동 버튼 -->
 					<c:forEach var="i" begin="${bookNewList.startPage}" end="${bookNewList.endPage}" step="1">
-					
-					<c:if test="${bookNewList.currentPage == i}">
-						<button
-							class="button button2"
-							type="button"
-							disabled="disabled"
-						>${i}</button>
-					</c:if>
-	
-					<c:if test="${bookNewList.currentPage != i}">
-						<button
-							class="button button1"
-							type="button"
-							onclick="location.href='?currentPage=${i}'"
-						>${i}</button>
-					</c:if>
-					
-					</c:forEach>
 				
+						<c:if test="${bookNewList.currentPage == i}">
+							<button
+								class="button button2"
+								type="button"
+								disabled="disabled"
+							>${i}</button>
+						</c:if>
+
+						<c:if test="${bookNewList.currentPage != i}">
+							<button
+								class="button button1"
+								type="button"
+								onclick="location.href='list.jsp?list=New&currentPage=${i}'"
+							>${i}</button>
+						</c:if>
+					</c:forEach>
+			
 					<!-- 10페이지 뒤로 -->
 					<c:if test="${bookNewList.endPage < bookNewList.totalPage}">
 						<button
 							class="button button1"
 							type="button"
 							title="다음 10페이지로 이동합니다."
-							onclick="location.href='?currentPage=${bookNewList.endPage + 1}'"
+							onclick="location.href='list.jsp?list=New&currentPage=${bookNewList.endPage + 1}'"
 						>다음</button>
 					</c:if>
-		
+	
 					<c:if test="${bookNewList.endPage >= bookNewList.totalPage}">
 						<button
 							class="button button2"
@@ -183,21 +182,20 @@
 							title="이미 마지막 10 페이지 입니다."
 						>다음</button>
 					</c:if>
-					
+				
 					<!-- 마지막으로 -->
 					<c:if test="${bookNewList.currentPage < bookNewList.totalPage}">
 						<button
 							class="button button1"
 							type="button"
 							title="마지막 페이지로 이동합니다."
-							onclick="location.href='?currentPage=${bookNewList.totalPage}'"
+							onclick="location.href='list.jsp?list=New&currentPage=${bookNewList.totalPage}'"
 						>마지막</button>
 					</c:if>
-				</td>
-		 	 </tr>	
-		</c:if>
-	</table>
-</div>
-
+					</td>
+		 		</tr>	
+			</c:if>
+		</table>
+	</div>
 </body>
 </html>

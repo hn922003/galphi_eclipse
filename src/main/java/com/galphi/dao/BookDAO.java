@@ -23,13 +23,18 @@ public class BookDAO {
 		return (BookVO) mapper.selectOne("selectByISBN", ISBN);
 	}
 	
-	
-//	전체 책 개수 쓸 수도 있으니 일단 남겨둡니다.
+//	전체 개수
 	public int selectCount(SqlSession mapper) {
 		System.out.println("BookDAO 클래스의 selectCount() 메소드 실행");
 		return (int) mapper.selectOne("selectCount");
 	}
-	
+
+//	전체 책 1페이지
+	public ArrayList<BookVO> selectList(SqlSession mapper, HashMap<String, Integer> hmap) {
+		System.out.println("BookDAO 클래스의 selectList() 메소드 실행");
+		return (ArrayList<BookVO>) mapper.selectList("selectList", hmap);
+	}
+
 //	오늘의 책 추천 한 페이지 가져오기
 	public ArrayList<BookVO> selectDailyList(SqlSession mapper, HashMap<String, Integer> hmap) {
 		System.out.println("BookDAO 클래스의 selectDailyList() 메소드 실행");
@@ -65,14 +70,17 @@ public class BookDAO {
 		System.out.println("BookDAO 클래스의 selectCategoryList() 메소드 실행");
 		return (ArrayList<BookVO>) mapper.selectList("selectCategoryList", param);
 	}
-	
-// 	BookService 클래스에서 호출되는 mapper와 1페이지 분량의 시작 인덱스, 끝 인덱스가 저장된
-//	HashMap 객체를 넘겨받고 1페이지 분량의 메인글 목록을 얻어오는 book.xml 파일의 
-//	select sql 명령을 실행하는 메소드
-	/*
-	public ArrayList<BookVO> selectList(SqlSession mapper, Date today) {
-		System.out.println("BookDAO 클래스의 selectList() 메소드 실행");
-		return (ArrayList<BookVO>) mapper.selectList("selectList", today);
+
+//	검색 엔진 전체 개수
+	public int selectCount(SqlSession mapper, Param param) {
+		System.out.println("BookDAO 클래스의 selectCount(SqlSession mapper, Param param) 메소드 실행");
+		return (int) mapper.selectOne("selectCountMulti", param);
 	}
-	 */
+	
+//	검색 한페이지 가져오기
+	public ArrayList<BookVO> selectList(SqlSession mapper, Param param) {
+		System.out.println("BookDAO 클래스의 selectList(SqlSession mapper, Param param) 메소드 실행");
+		return (ArrayList<BookVO>) mapper.selectList("selectListMulti", param);
+	}
+	
 }
