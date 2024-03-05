@@ -1,0 +1,208 @@
+wrapper {
+   width: 1920px;
+   height: auto;
+   margin-top: 5%;
+}
+
+.header {
+   width:80%;
+   height: 120px;
+   margin: auto;
+   justify-content: center;
+   display: flex;
+   list-style-type: none;
+   flex-direction: row;
+}
+.header .logo {
+   width: 20%;
+   height: 100%;
+   background-color: lightyellow;;
+   float: left;
+   font-size: 50px;
+   text-align: center;
+   font-weight: normal;
+}
+.header .search {
+   width: 50%;
+   height: 48px;
+   border: 3px solid mistyrose;
+   background-color: white;
+   display : flex;
+   justify-content: center;
+}
+.search form {
+   width: 20%;
+   height: 100%;
+   border:0;
+   background-color: mistyrose;
+   outline: none;
+   margin-top: 5% 5%;
+}
+.search select {
+   width: 100%;
+   height: 100%;
+   border:0;
+   background-color: mistyrose;
+   font-size: 80%;
+   color: black;
+   outline: none;
+   margin: auto;
+   float: left;
+}
+.search input {
+   font-size: 80%;
+   width: 60%;
+   padding: 10px;
+   border:0;
+   outline: none;
+   display : flex;
+   margin: auto;
+   float: left;
+}
+.search button {
+   width: 10%;
+   height: 100%;
+   border:0;
+   background-color: mistyrose;
+   outline: none;
+   float: right;
+   color: black;
+}
+.search button:hover{
+   width: 10%;
+   height: 100%;
+   border:0;
+   background-color: white;
+   outline: none;
+   float: right;
+   color: mistyrose;
+}
+.header .login {
+   width: 20%;
+   height: 100%;
+   margin:auto;
+}
+.login button {
+   width: 80%;
+   height: 40%;
+   padding: 16px 32px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 12px;
+   transition-duration: 0.4s;
+   cursor: pointer;
+   background-color: mistyrose; 
+   color: black; 
+   border: 2px solid bromistyrosewn;
+}
+.login button:hover {
+   background-color: white;
+   color: mistyrose;
+}
+
+.main {
+   width: 80%;
+   height: auto;
+   margin-left: 10%;
+   margin-right: 10%;
+   margin-top: 1%;
+   display: flex;
+   list-style-type: none;
+   flex-direction: row;
+}
+.main .Category {
+   width: 20%;
+   height: auto;
+   background-color: lightpink;
+   float: left;
+}
+.Category .cate_list {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+.active .cate_list:hover {
+   background-color: #555;
+}
+.category {
+   padding: 0 10px; 
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.2s ease-out;
+   background-color: #f1f1f1;
+}
+.cate_list:after {
+   content: '\002B';
+   color: white;
+   font-weight: bold;
+   float: right;
+   margin-left: 5px;
+}
+.active:after {
+   content: "\2212";
+}
+.Category a {
+   text-decoration: none;
+}
+
+.main .rolling_book {
+   width:70%;
+   height: auto;
+   float: left;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: dodgerblue;
+	text-decoration: none;
+}
+
+.button {
+	background-color: #04AA6D; /* green */
+	border: none;
+	color: white;
+	padding: 2px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	width: 55px;
+	height: 30px;
+}
+
+.button1 {
+	background-color: white;
+	color: black;
+	border: 1px solid #04AA6D;
+}
+
+.button1:hover {
+	background-color: #04AA6D;
+	color: white;	
+}
+
+.button2 {
+	background-color: dodgerblue;
+	color: white;
+	border: none;
+	cursor: default;
+}
+
+.footer{
+   width: 100%;
+   height: 50px;
+}

@@ -13,30 +13,64 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link href="css/contentViewStyles.css" rel="stylesheet" />
-
+<link href="css/view.css" rel="stylesheet" />
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container px-5">
-			<a class="navbar-brand" href="#!">Start Bootstrap</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#!">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-				</ul>
+	<div class="wrapper">
+		<div class="header">
+			<div class="logo">logo</div>
+			<div class="search">
+				<form method="post" name="search-requirement" action="searchbbs.jsp">
+					<select class="search-requirement" name="searchField">
+						<option value="title">제목</option>
+						<option value="author">저자</option>
+						<option value="title_author">제목+저자</option>
+					</select>
+				</form>
+				<input type="text" class="input-search" placeholder="검색어 입력" name="searchText">
+				<button type="button" id="search_button"
+					onclick="location.href='search'" class="btn-success">검색</button>
+			</div>
+
+			<div class="login">
+				<button type="button" id="login_button"
+					onclick="location.href='login'">로그인</button>
 			</div>
 		</div>
-	</nav>
+
+		<div class="main">
+			<div class="Category">
+				<button type="button" class="cate_list" onclick="cate_list(this);">카테고리</button>
+				<div class="category">
+					<li><a href="list.jsp?list=Novel">소설</a></li>
+					<li><a href="list.jsp?list=Develop">자기개발</a></li>
+					<li><a href="list.jsp?list=It">IT/컴퓨터</a></li>
+					<li><a href="list.jsp?list=Child">아동</a></li>
+					<li><a href="list.jsp?list=History">역사</a></li>
+				</div>
+				<script>
+					function cate_list(element) {
+						var before = document.getElementsByClassName("active")[0] // 기존에 활성화된 버튼
+						if (before
+								&& document.getElementsByClassName("active")[0] != element) { // 자신 이외에 이미 활성화된 버튼이 있으면
+							before.nextElementSibling.style.maxHeight = null; // 기존에 펼쳐진 내용 접고
+							before.classList.remove("active"); // 버튼 비활성화
+						}
+						element.classList.toggle("active"); // 활성화 여부 toggle
+
+						var content = element.nextElementSibling;
+						if (content.style.maxHeight != 0) { // 버튼 다음 요소가 펼쳐져 있으면
+							content.style.maxHeight = null; // 접기
+						} else {
+							content.style.maxHeight = content.scrollHeight + "px"; // 접혀있는 경우 펼치기
+						}
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+	
 	<!-- Page Content-->
 	<div class="container px-4 px-lg-5">
 		<!-- Heading Row-->
