@@ -44,9 +44,8 @@ function pwCheck()
 }
 
 
-function nickCheck()
+function nickCheck(obj)
 {
-    let nickname = document.getElementsByName('nickname')[0].value
-
-    console.log(nick_cnt)
+    obj.action = 'nick_Check.jsp'
+    obj.submit()
 }
