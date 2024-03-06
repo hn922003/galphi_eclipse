@@ -117,12 +117,19 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	int ISBN = Integer.parseInt(request.getParameter("ISBN"));	
-	// out.print(ISBN);
+	//out.print(ISBN);
 	BookCommentList bookCommentList = BookCommentService.getInstance().selectCommentList(ISBN);
 	request.setAttribute("bookCommentList", bookCommentList);
 %>
 	<table class="table table-hover" style="width: 1000px; margin-left: auto; margin-right: auto;">
 		<c:set var="comment" value="${bookCommentList.list}"/>
+		<!-- 댓글 입력 시 새로운 댓글 별점 반영해서 평점 새로 계산 -->
+		<c:set var="avg" value="0"/>
+		<c:forEach var="co" items="${comment}">
+			<c:set var="avg" value="${avg = avg + co.score}"/>
+		</c:forEach>
+		<c:set var="avg" value="${avg/comment.size()}"/>
+		<fmt:formatNumber var="avg" value="${avg}" pattern="##.#"></fmt:formatNumber>
 		<tr class="align-middle text-center">
 			<td>
 				<figure class="text-center">
@@ -134,8 +141,8 @@
 				  </figcaption>
 				</figure>
 				<div class="text-danger mb-4 fs-5">
-					<c:set var="fillstars" value="${vo.avg / 2 - vo.avg / 2 % 1}"/><!-- 내림처리 -->
-					<c:set var="halfStars" value="${vo.avg % 2.0}"/>
+					<c:set var="fillstars" value="${avg / 2 - avg / 2 % 1}"/><!-- 내림처리 -->
+					<c:set var="halfStars" value="${avg % 2.0}"/>
 					<c:forEach begin="1" end="${fillstars}" step="1" >
 						<i class="bi bi-star-fill"></i>
 					</c:forEach>
@@ -146,7 +153,7 @@
 					<c:forEach begin="1" end="${5 - (fillstars + halfStars)}" step="1" >
 						<i class="bi bi-star"></i>
 					</c:forEach>
-					&nbsp;<b>평점: ${vo.avg}</b> 
+					&nbsp;<b>평점: ${avg}</b> 
 				</div>
 			</td>
 		</tr>
@@ -184,13 +191,13 @@
 						type="button"
 						style="font-size: 12px;"
 						title="후기삭제"
-						onclick="location.href='deletecommentOK.jsp?idx=${co.idx}'">
+						onclick="location.href='deletecommentOK.jsp?idx=${co.idx}&ISBN=${co.ISBN}'">
 						<i class="bi bi-x-circle-fill"></i>
 					</button>	
 				</div>
 				<div class="d-inline-flex float-end" style="color: red;">
 					<!-- 평점 만큼 별의 개수를 적어준다 온별 반별 -->
-					${co.score}					
+					${co.score}	&nbsp;&nbsp;				
 					<c:set var="fillstars" value="${co.score / 2 - co.score / 2 % 1}"/><!-- 내림처리 -->
 					<c:set var="halfStars" value="${co.score % 2.0}"/>
 					<c:forEach var="fillStar" begin="1" end="${fillstars}" step="1" >
@@ -228,10 +235,8 @@
 				<c:set var="memo" value="${fn:replace(memo, '>', '&gt;')}"/>
 				<c:set var="memo" value="${fn:replace(memo, enter, '<br/>')}"/>
 				<div class="p-3 pt-3 pb-3">
-					${co.memo}
+					${memo}
 				</div>
-				<!-- <div class="align-middle d-flex justify-content-end"> -->
-				
 			</td>
 		</tr>
 		</c:forEach>
@@ -239,9 +244,9 @@
 	</table>
 <!-- 댓글 입력창 -->
 <form class="m-3" action="insertcommentOK.jsp" method="post" name="commentForm">
-	<table class="table table-hover" style="width: 1000px; margin-left: auto; margin-right: auto;">
+	<table class="table table-hover table-warning table-border" style="width: 700px; margin-left: auto; margin-right: auto;">
 	
-		<tr class="table-primary">
+		<tr style="background-color: royalblue;">
 			<th class="align-middle text-center" colspan="4" style="font-size: 30px;">
 				후기 입력
 			</th>
@@ -252,9 +257,9 @@
 		<tr style="display: none;">
 			<td colspan="4">
 				<!-- 수정 또는 삭제할 댓글의 책번호-->
-				ISBN: <input type="hidden" name="ISBN" size="1"/>
+				ISBN: <input type="text" name="ISBN" value="${ISBN}">
 				<!-- 현재 댓글이 누구의(?) 댓글인가 -->
-				nick: <input type="hidden" name="nick" size="1"/>
+				nick: <input type="hidden" name="nick" value="1"/>
 				<!-- 작업 모드, 1 => 댓글 저장, 2 => 댓글 수정, 3 => 댓글 삭제 -->
 				<!-- mode: <input type="text" name="mode" value="1" size="1"/> -->
 				<!-- 메인글이 표시되던 페이지 번호 -->

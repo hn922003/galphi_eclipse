@@ -1,3 +1,5 @@
+<%@page import="com.galphi.vo.Param"%>
+<%@page import="com.galphi.dao.BookCommentDAO"%>
 <%@page import="com.galphi.service.BookCommentService"%>
 <%@page import="com.galphi.vo.BookCommentVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -17,13 +19,15 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	int idx = Integer.parseInt(request.getParameter("idx"));
-	// out.println(idx);
+	//out.println(idx);
 	
-	BookCommentVO co = BookCommentService.getInstance().selectcommentByIdx(idx);
+	BookCommentService.getInstance().deleteComment(idx);
 
-	request.setAttribute("co", co);
-	pageContext.forward("deletecomment.jsp");
-	//out.println(co);
+	int ISBN = Integer.parseInt(request.getParameter("ISBN"));
+	request.setAttribute("ISBN", ISBN);
+	
+	pageContext.forward("selectByISBN.jsp");
+	
 %>
 
 

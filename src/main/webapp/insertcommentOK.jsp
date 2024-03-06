@@ -11,32 +11,16 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	// int mode = Integer.parseInt(request.getParameter("mode"));
-
-	/* int mode = Integer.parseInt(request.getParameter("mode")); */
-
 %>
 
 <jsp:useBean id="co" class="com.galphi.vo.BookCommentVO">
 	<jsp:setProperty property="*" name="co"/>
 </jsp:useBean>
-
 <%
-	out.println("<script>");
-	
 	BookCommentService.getInstance().insertComment(co);
-	
-	
-	// (BookCommentService.getInstance().updateComment(co);
-	
-	
-	out.println("</script>");
-	response.sendRedirect("insertcomment.jsp");
-
+	request.setAttribute("ISBN", co.getISBN());
+	pageContext.forward("selectByISBN.jsp");
 %>
-
-	입력완료
-	
 </body>
 </html>
 
