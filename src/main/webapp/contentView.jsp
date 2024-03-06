@@ -121,12 +121,12 @@
 	BookCommentList bookCommentList = BookCommentService.getInstance().selectCommentList(ISBN);
 	request.setAttribute("bookCommentList", bookCommentList);
 %>
-	<table class="table table-hover" style="width: 700px; margin-left: auto; margin-right: auto;">
+	<table class="table table-hover" style="width: 1000px; margin-left: auto; margin-right: auto;">
 		<c:set var="comment" value="${bookCommentList.list}"/>
 		<c:if test="${comment.size() == 0}">
 		<tr>
 			<td colspan="4">
-				<marquee>댓글이 하나도 없네요~~~~~ 인기가 꽝이에요~~~~~</marquee>
+				<marquee>첫번째 후기를 남겨주세요!!</marquee>
 			</td>
 		</tr>
 		</c:if>
@@ -162,7 +162,7 @@
 				</div>
 				<div class="d-inline-flex float-end" style="color: red;">
 					<!-- 평점 만큼 별의 개수를 적어준다 온별 반별 -->
-					<c:set var="fillstars" value="${co.score / 2 - co.score / 2 % 1}"/>
+					<c:set var="fillstars" value="${co.score / 2 - co.score / 2 % 1}"/><!-- 내림처리 -->
 					<c:set var="halfStars" value="${co.score % 2.0}"/>
 					<c:forEach var="fillStar" begin="1" end="${fillstars}" step="1" >
 						<i class="bi bi-star-fill"></i>
@@ -174,6 +174,25 @@
 					<c:forEach var="emptyStar" begin="1" end="${5 - (fillstars + halfStars)}" step="1" >
 						<i class="bi bi-star"></i>
 					</c:forEach>
+					<small class="text-black-50"><span>&nbsp; / &nbsp;</span></small>
+					<c:if test="${fillstars == 5}">
+						<b style="color: deeppink; border: 1px solid;">&nbsp;<i class="bi bi-emoji-laughing"></i> 완벽해요&nbsp;</b> 
+					</c:if>
+					<c:if test="${fillstars == 4}">
+						<b style="color: blue; border: 1px solid;">&nbsp;<i class="bi bi-emoji-smile"></i> 추천해요&nbsp;</b> 
+					</c:if>
+					<c:if test="${fillstars == 3}">
+						<b style="color: green; border: 1px solid;">&nbsp;<i class="bi bi-emoji-neutral"></i> 읽어봐요&nbsp;</b> 
+					</c:if>
+					<c:if test="${fillstars == 2}">
+						<b style="color: yellow; border: 1px solid;">&nbsp;<i class="bi bi-emoji-frown"></i> 아쉬워요&nbsp;</b> 
+					</c:if>
+					<c:if test="${fillstars == 1}">
+						<b style="color: orangered; border: 1px solid;">&nbsp;<i class="bi bi-emoji-dizzy"></i> 별로예요&nbsp;</b> 
+					</c:if>
+					<c:if test="${fillstars == 0}">
+						<b style="color: red; border: 1px solid;">&nbsp;<i class="bi bi-emoji-angry"></i> 비추예요&nbsp;</b> 
+					</c:if>
 				</div>
 				<br/>
 				<c:set var="memo" value="${fn:replace(co.memo, '<', '&lt;')}"/>
@@ -191,7 +210,7 @@
 	</table>
 <!-- 댓글 입력창 -->
 <form class="m-3" action="insertcommentOK.jsp" method="post" name="commentForm">
-	<table class="table table-hover" style="width: 700px; margin-left: auto; margin-right: auto;">
+	<table class="table table-hover" style="width: 1000px; margin-left: auto; margin-right: auto;">
 	
 		<tr class="table-primary">
 			<th class="align-middle text-center" colspan="4" style="font-size: 30px;">
@@ -232,7 +251,7 @@
 				<textarea 
 					id="memo" 
 					class="form-control form-control-sm" 
-					rows="5" 
+					rows="10" 
 					name="memo"
 					style="resize: none;"></textarea>
 			</td>
