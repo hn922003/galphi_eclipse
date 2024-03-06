@@ -127,7 +127,7 @@
 			<td>
 				<figure class="text-center">
 				  <blockquote class="blockquote">
-				    <p class="fw-bold fs-3 text-secondary">" 먼저 읽어본 길라잡이들의 이야기 "</p>
+				    <p class="fw-bold fs-3 text-secondary"><i class="bi bi-activity"></i> 먼저 읽어본 길라잡이들의 이야기 <i class="bi bi-activity"></i></p>
 				  </blockquote>
 				  <figcaption class="blockquote-footer">
 				    당신의 갈피를 잡아줄 <cite title="Source Title">속삭임</cite>
@@ -146,7 +146,7 @@
 					<c:forEach begin="1" end="${5 - (fillstars + halfStars)}" step="1" >
 						<i class="bi bi-star"></i>
 					</c:forEach>
-					평점: ${vo.avg}
+					&nbsp;<b>평점: ${vo.avg}</b> 
 				</div>
 			</td>
 		</tr>
@@ -190,6 +190,7 @@
 				</div>
 				<div class="d-inline-flex float-end" style="color: red;">
 					<!-- 평점 만큼 별의 개수를 적어준다 온별 반별 -->
+					${co.score}					
 					<c:set var="fillstars" value="${co.score / 2 - co.score / 2 % 1}"/><!-- 내림처리 -->
 					<c:set var="halfStars" value="${co.score % 2.0}"/>
 					<c:forEach var="fillStar" begin="1" end="${fillstars}" step="1" >
@@ -261,7 +262,7 @@
 			</td>
 		</tr>
 		
-		<!-- 이 줄 부터 댓글 입력, 수정, 삭제에 사용한다. -->
+		<!-- 댓글 입력 -->
 		<tr>
 			<th class="align-middle text-center" style="width: 100px;">
 				<label for="score">별점</label>
@@ -281,23 +282,19 @@
 					class="form-control form-control-sm" 
 					rows="10" 
 					name="memo"
+					placeholder="당신의 소중한 경험을 이야기해주세요."
 					style="resize: none;"></textarea>
 			</td>
 		</tr>
 		
 		<tr class="table-warning">
 			<td class="align-middle text-center" colspan="4">
-				<input 
-					class="btn btn-outline-primary btn-sm" 
-					type="submit" 
-					value="댓글저장" 
-					style="font-size: 13px;"
-					name="commentBtn"/>
-				<!-- <input 
-					class="btn btn-outline-danger btn-sm" 
-					type="button" 
-					value="다시쓰기" 
-					style="font-size: 13px;"/> -->
+				<button
+					class="btn btn-outline-primary btn-sm"
+					type="submit"
+					name="commentBtn">
+					<i class="bi bi-pencil"></i>&nbsp;후기쓰기
+				</button>
 			</td>
 		</tr>
 	</table>
