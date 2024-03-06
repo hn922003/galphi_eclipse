@@ -123,6 +123,34 @@
 %>
 	<table class="table table-hover" style="width: 1000px; margin-left: auto; margin-right: auto;">
 		<c:set var="comment" value="${bookCommentList.list}"/>
+		<tr class="align-middle text-center">
+			<td>
+				<figure class="text-center">
+				  <blockquote class="blockquote">
+				    <p class="fw-bold fs-3 text-secondary">" 먼저 읽어본 길라잡이들의 이야기 "</p>
+				  </blockquote>
+				  <figcaption class="blockquote-footer">
+				    당신의 갈피를 잡아줄 <cite title="Source Title">속삭임</cite>
+				  </figcaption>
+				</figure>
+				<div class="text-danger mb-4 fs-5">
+					<c:set var="fillstars" value="${vo.avg / 2 - vo.avg / 2 % 1}"/><!-- 내림처리 -->
+					<c:set var="halfStars" value="${vo.avg % 2.0}"/>
+					<c:forEach begin="1" end="${fillstars}" step="1" >
+						<i class="bi bi-star-fill"></i>
+					</c:forEach>
+					<c:if test="${halfStars != 0}">
+						<i class="bi bi-star-half"></i>
+						<c:set var="halfStars" value="1"/>
+					</c:if>
+					<c:forEach begin="1" end="${5 - (fillstars + halfStars)}" step="1" >
+						<i class="bi bi-star"></i>
+					</c:forEach>
+					평점: ${vo.avg}
+				</div>
+			</td>
+		</tr>
+		<!-- 후기가 없는 경우 -->
 		<c:if test="${comment.size() == 0}">
 		<tr>
 			<td colspan="4">
@@ -131,10 +159,10 @@
 		</tr>
 		</c:if>
 		
-		<!-- 댓글이 있는 경우 -->
+		<!-- 후기가 있는 경우 -->
 		<c:if test="${comment.size() != 0}">
 		<c:forEach var="co" items="${comment}">
-		<tr class="table-primary">
+		<tr>
 			<td class="clearfix p-3" colspan="4">
 				<c:set var="nick" value="${fn:replace(co.nick, '<', '&lt;')}"/>
 				<c:set var="nick" value="${fn:replace(nick, '>', '&gt;')}"/>
@@ -198,7 +226,7 @@
 				<c:set var="memo" value="${fn:replace(co.memo, '<', '&lt;')}"/>
 				<c:set var="memo" value="${fn:replace(memo, '>', '&gt;')}"/>
 				<c:set var="memo" value="${fn:replace(memo, enter, '<br/>')}"/>
-				<div class="p-3">
+				<div class="p-3 pt-3 pb-3">
 					${co.memo}
 				</div>
 				<!-- <div class="align-middle d-flex justify-content-end"> -->
