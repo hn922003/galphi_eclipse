@@ -108,6 +108,11 @@
 			) where rnum >= #{startNo}
 		]]>
 	</select>
+	
+	<update id="update" parameterType="com.galphi.vo.Param">
+		update book set avg = #{avg} where ISBN = #{ISBN}
+	</update>
+	
 </mapper>
 
 

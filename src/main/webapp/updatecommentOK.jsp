@@ -20,7 +20,18 @@
 	// out.println(idx);
 	
 	BookCommentVO co = BookCommentService.getInstance().selectcommentByIdx(idx);
-
+	
+	float coscore = Float.parseFloat(request.getParameter("coscore"));
+	// out.print(coscore);
+	int size = Integer.parseInt(request.getParameter("size"));
+	// out.print(size);
+	float avg = Float.parseFloat(request.getParameter("avg"));
+	// out.print(avg);
+	
+	request.setAttribute("coscore", coscore);
+	request.setAttribute("size", size);
+	request.setAttribute("avg", avg);
+	
 	request.setAttribute("co", co);
 	pageContext.forward("updatecomment.jsp");
 	//out.println(co);

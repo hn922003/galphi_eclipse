@@ -11,24 +11,25 @@
 %>
 
 <jsp:useBean id="ao" class="com.galphi.account.AccountVO">
-    <jsp:setProperty property="nickname" name="ao"/>
+    <jsp:setProperty property="id" name="ao"/>
 </jsp:useBean>
 
 
 <%
-    int nick_cnt = AccountService.getInstance().nickCheck(ao.getNickname());
-    if (nick_cnt > 0)
+    int id_cnt = AccountService.getInstance().IdCheck(ao.getId());
+    out.print(id_cnt);
+    if (id_cnt > 0)
     {
         response.getWriter().println("<script>" +
-                "alert('이미 사용중인 닉네임입니다.'); " +
+                "alert('이미 사용중인 아이디입니다.'); " +
                 "history.go(-1)" +
                 "</script>");
     }
     else
     {
         response.getWriter().println("<script>" +
-                "alert('사용 가능한 닉네임입니다.'); " +
-                "history.go(-1);" +
+                "alert('사용 가능한 아이디입니다.'); " +
+                "history.go(-1)" +
                 "</script>");
     }
 %>

@@ -1,6 +1,3 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,50 +5,37 @@
     <title>회원가입</title>
 
     <style type="text/css">
-
-        .mail
-        {
-            width: 30%;
-            padding: 5px;
-            background-color: skyblue;
-        }
-
-        .mail_list
-        {
-            width: 30%;
-            padding: 5px;
-        }
-
         .input
         {
             width: 70%;
             padding: 5px;
             background-color: skyblue;
         }
+
+        table
+        {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 200px;
+        }
+
     </style>
 
-    <script type="text/javascript" src="./js/passwordCheck.js" defer></script>
+    <script type="text/javascript" src="js/Account.js" defer></script>
 
 </head>
 <body>
-<form action="account_insert.jsp" method="post" onsubmit="return passwordCheck(this)">
+<form action="account_insert.jsp" method="post" onsubmit="return account(this)">
     <table width="500" border="1" cellpadding="5" cellspacing="0">
         <tr>
             <th colspan="2">회원가입</th>
         </tr>
 
         <tr>
-            <th width="150">이메일</th>
+            <th width="150">아이디</th>
             <td width="350">
-                <input class="mail" type="text" name="id"/>
-                <select class="mail_list" name="usermail" id="usermail">
-                    <option>naver.com</option>
-                    <option>gmail.com</option>
-                    <option>daum.com</option>
-                </select>
-<%--
-                <input type="button" name="cert_send" value="인증번호 전송">
---%>
+                <input class="input" type="text" name="id" placeholder="아이디를 입력해주세요"/>
+                <input class="Id_Check" type="button" name="Id_Check" value="중복확인" onclick="IdCheck(form)">
             </td>
         </tr>
 
@@ -66,8 +50,7 @@
             <th>닉네임</th>
             <td>
                 <input class="input" type="text" name="nickname" placeholder="닉네임을 입력하세요"/>
-                <input class="nickname_chk" type="button" name="nickname_chk" value="중복확인" onclick="nickCheck(form)">
-                <div id="CheckMessage"></div>
+                <input class="nick_Check" type="button" name="nick_Check" value="중복확인" onclick="nickCheck(form)">
             </td>
         </tr>
 
@@ -88,7 +71,7 @@
 
         <tr>
             <td colspan="2" align="center">
-                <input type="submit" value="가입"/>
+                <input type="button" value="가입" onclick="CreateAcc(form)"/>
                 <input type="button" value="취소" onclick="location.href='main_page.jsp'"/>
             </td>
         </tr>

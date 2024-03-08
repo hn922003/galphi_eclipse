@@ -11,8 +11,8 @@
 <title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link href="css/contentViewStyles.css" rel="stylesheet" />
 <script type="text/javascript" src="./js/register.js" defer="defer"></script>
@@ -35,10 +35,23 @@
 				</form>
 			</div>
 
-			<div class="login">
+			<!-- <div class="login">
 				<button type="button" id="login_button"
 					onclick="location.href='login'">로그인</button>
-			</div>
+			</div> -->
+			<%
+			    if(session.getAttribute("nickname") == null)
+			    {			
+			        out.println("<input type=\"button\" id=\"login_btn\" class=\"login_btn\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
+			        out.println("<input type=\"button\" id=\"signin_btn\" class=\"signin_btn\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
+			    }
+			    else
+			    {
+			        String nickname = (String) session.getAttribute("nickname");
+			        out.println(nickname+"님 로그인 되었습니다");
+			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"logout_btn\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
+			    }
+			%>
 		</div>
 
 		<div class="main">
@@ -77,6 +90,7 @@
 	<div class="container px-4 px-lg-5">
 		<!-- Heading Row-->
 		<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd"/>
+		<fmt:formatNumber var="voavg" value="${vo.avg}" pattern="##.#"></fmt:formatNumber>
 		<div class="row gx-4 gx-lg-1 align-items-center my-5">
 			<div class="col-lg-7">
 				<img class="mx-auto d-block" alt="title" src="./images/${vo.title}.jpg" style="width: 300px; height: 400px;">
@@ -86,7 +100,7 @@
 				<p>${vo.author}</p>
 				<p>${vo.publisher}</p>
 				<p>출판일: ${pDate}</p>
-				<p>평점: ${vo.avg}</p>
+				<p>평점: ${voavg}</p>
 				<a class="btn btn-primary" href="#!">Call to Action!</a>
 			</div>
 		</div>
@@ -121,6 +135,7 @@
 	BookCommentList bookCommentList = BookCommentService.getInstance().selectCommentList(ISBN);
 	request.setAttribute("bookCommentList", bookCommentList);
 %>
+<form class="m-3" action="insertcommentOK.jsp" method="post" name="commentForm">
 	<table class="table table-hover" style="width: 1000px; margin-left: auto; margin-right: auto;">
 		<c:set var="comment" value="${bookCommentList.list}"/>
 		<!-- 댓글 입력 시 새로운 댓글 별점 반영해서 평점 새로 계산 -->
@@ -129,7 +144,7 @@
 			<c:set var="avg" value="${avg = avg + co.score}"/>
 		</c:forEach>
 		<c:set var="avg" value="${avg/comment.size()}"/>
-		<fmt:formatNumber var="avg" value="${avg}" pattern="##.#"></fmt:formatNumber>
+		<%-- <fmt:formatNumber var="avg" value="${avg}" pattern="##.#"></fmt:formatNumber> --%>
 		<tr class="align-middle text-center">
 			<td>
 				<figure class="text-center">
@@ -153,7 +168,10 @@
 					<c:forEach begin="1" end="${5 - (fillstars + halfStars)}" step="1" >
 						<i class="bi bi-star"></i>
 					</c:forEach>
-					&nbsp;<b>평점: ${avg}</b> 
+					&nbsp;<b>평점: ${voavg}</b> 
+					<input type="hidden" name="avg" value="${avg}"/>
+					<input type="hidden" name="size" value="${comment.size()}"/>
+					
 				</div>
 			</td>
 		</tr>
@@ -178,12 +196,13 @@
 					<small class="ml-3">
 						<fmt:formatDate value="${co.wDate}" pattern="yy.MM.dd"/>
 					</small>
+					<c:if test="${nickname == co.nick}">
 					<button
 						class="btn btn-sm text-primary"
 						type="button"
 						style="font-size: 12px; margin-right: -12px;"
 						title="후기수정"
-						onclick="location.href='updatecommentOK.jsp?idx=${co.idx}'">
+						onclick="location.href='updatecommentOK.jsp?idx=${co.idx}&coscore=${co.score}&avg=${avg}&size=${comment.size()}'">
 						<i class="bi bi-wrench-adjustable"></i>
 					</button>
 					<button
@@ -191,13 +210,14 @@
 						type="button"
 						style="font-size: 12px;"
 						title="후기삭제"
-						onclick="location.href='deletecommentOK.jsp?idx=${co.idx}&ISBN=${co.ISBN}'">
+						onclick="location.href='deletecommentOK.jsp?idx=${co.idx}&ISBN=${co.ISBN}&coscore=${co.score}&avg=${avg}&size=${comment.size()}'">
 						<i class="bi bi-x-circle-fill"></i>
 					</button>	
+					</c:if>
 				</div>
 				<div class="d-inline-flex float-end" style="color: red;">
 					<!-- 평점 만큼 별의 개수를 적어준다 온별 반별 -->
-					${co.score}	&nbsp;&nbsp;				
+					${co.score}	&nbsp;&nbsp;
 					<c:set var="fillstars" value="${co.score / 2 - co.score / 2 % 1}"/><!-- 내림처리 -->
 					<c:set var="halfStars" value="${co.score % 2.0}"/>
 					<c:forEach var="fillStar" begin="1" end="${fillstars}" step="1" >
@@ -243,9 +263,18 @@
 		</c:if>
 	</table>
 <!-- 댓글 입력창 -->
-<form class="m-3" action="insertcommentOK.jsp" method="post" name="commentForm">
+	<c:if test="${nickname == null}">
+		<table class="table table-hover table-warning table-border" style="width: 700px; margin-left: auto; margin-right: auto;">
+			<tr style="background-color: royalblue;">
+				<th class="align-middle text-center" colspan="4" style="font-size: 30px;">
+					후기를 입력하고 싶으면 로그인 하세요
+				</th>
+			</tr>
+		</table>
+	</c:if>
+	<c:if test="${nickname != null}">
 	<table class="table table-hover table-warning table-border" style="width: 700px; margin-left: auto; margin-right: auto;">
-	
+		
 		<tr style="background-color: royalblue;">
 			<th class="align-middle text-center" colspan="4" style="font-size: 30px;">
 				후기 입력
@@ -257,9 +286,9 @@
 		<tr style="display: none;">
 			<td colspan="4">
 				<!-- 수정 또는 삭제할 댓글의 책번호-->
-				ISBN: <input type="text" name="ISBN" value="${ISBN}">
+				ISBN: <input type="text" name="ISBN" value="${vo.ISBN}"/>
 				<!-- 현재 댓글이 누구의(?) 댓글인가 -->
-				nick: <input type="hidden" name="nick" value="1"/>
+				nick: <input type="hidden" name="nick" value="${nickname}"/>
 				<!-- 작업 모드, 1 => 댓글 저장, 2 => 댓글 수정, 3 => 댓글 삭제 -->
 				<!-- mode: <input type="text" name="mode" value="1" size="1"/> -->
 				<!-- 메인글이 표시되던 페이지 번호 -->
@@ -273,10 +302,14 @@
 				<label for="score">별점</label>
 			</th>
 			<td style="width: 250px;">
-				<input id="score" class="form-control form-control-sm" type="text" name="score"/>
+				<input 
+					id="score" 
+					class="form-control form-control-sm" 
+					type="number"
+					placeholder="0 ~ 10점을 입력해주세요" 
+					name="score"/>
 			</td>
 		</tr>
-	
 		<tr>
 			<th class="align-middle text-center" style="width: 100px;">
 				<label for="memo">후기</label>
@@ -297,12 +330,22 @@
 				<button
 					class="btn btn-outline-primary btn-sm"
 					type="submit"
+					onsubmit="t()"
 					name="commentBtn">
 					<i class="bi bi-pencil"></i>&nbsp;후기쓰기
 				</button>
+				<input 
+					class="btn btn-outline-primary btn-sm" 
+					type="button" 
+					value="테스트" 
+					onclick="check()"/>
+				 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+				    Open modal
+				  </button>
 			</td>
 		</tr>
 	</table>
+	</c:if>
 </form>	
 	
 	<!-- Footer-->
@@ -317,6 +360,39 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="js/scripts.js"></script>
+
+<div class="container mt-3">
+  <h3>Modal Example</h3>
+  <p>Click on the button to open the modal.</p>
+  
+ 
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>

@@ -19,11 +19,14 @@
 
 
 <form class="m-3" action="updatecommentOK2.jsp" method="post" name="commentForm">
+	<input type="hidden" name="size" size="1" value="${size}"/>
+	<input type="hidden" name="avg" size="1" value="${avg}"/>
+	<input type="hidden" name="coscore" size="1" value="${coscore}"/>
 	<table class="table table-hover" style="width: 700px; margin-left: auto; margin-right: auto;">
 		<c:set var="co" value="${co}"/>
 		<tr class="table-primary">
 			<th class="align-middle text-center" colspan="4" style="font-size: 30px;">
-				후기 수정
+				후기 수정 
 			</th>
 		</tr>
 		

@@ -26,9 +26,22 @@
 	//out.println(idx);
 	Param param = new Param(idx, memo, score);
 	BookCommentService.getInstance().updateComment(param);
-	
+
 	int ISBN = Integer.parseInt(request.getParameter("ISBN"));
 	request.setAttribute("ISBN", ISBN);
+
+	float coscore = Float.parseFloat(request.getParameter("coscore"));
+	// out.print(coscore);
+	int size = Integer.parseInt(request.getParameter("size"));
+	// out.print(size);
+	float avg = Float.parseFloat(request.getParameter("avg"));
+	// out.print(avg);
+	
+	avg = (avg * size - coscore + score) / size;
+	// out.print(avg);
+	
+	BookService.getInstance().update(avg, ISBN);
+	
 	
 	pageContext.forward("selectByISBN.jsp");
 %>

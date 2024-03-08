@@ -26,9 +26,10 @@ update bookcomment set category = 'it' where category is null;
 delete bookcomment;
 
 
-insert into bookcomment (isbn, NICK, IDX, SCORE, MEMO) values(102, 'ȫ�浿', (select NVL(MAX(IDX), 0) + 1 from bookcomment), 5, 'test');
+insert into bookcomment (isbn, NICK, IDX, SCORE, MEMO) values(69, 'ȫ�浿', (select NVL(MAX(IDX), 0) + 1 from bookcomment), 5, 'test');
 
-select * from bookcomment where ISBN = 11 order by idx desc;
+select * from bookcomment where ISBN = 101 order by idx desc;
+
 
 
 

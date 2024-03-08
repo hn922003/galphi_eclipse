@@ -10,6 +10,7 @@
 		<!-- 별명 설정 -->
 		<typeAlias type="com.galphi.vo.BookVO" alias="vo" />
 		<typeAlias type="com.galphi.vo.BookCommentVO" alias="co" />
+		<typeAlias type="com.galphi.account.AccountVO" alias="ao" />
 	</typeAliases>
 	
 	<environments default="development">
@@ -28,6 +29,7 @@
 		<!-- 실행할 sql 명령이 저장된 파일의 위치 -->
 		<mapper resource="com/galphi/mybatis/book.xml" />
 		<mapper resource="com/galphi/mybatis/bookcomment.xml" />
+		<mapper resource="com/galphi/mybatis/account.xml"/>
 	</mappers>
 	
 </configuration>

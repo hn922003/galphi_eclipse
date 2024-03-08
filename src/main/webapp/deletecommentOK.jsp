@@ -1,3 +1,4 @@
+<%@page import="com.galphi.service.BookService"%>
 <%@page import="com.galphi.vo.Param"%>
 <%@page import="com.galphi.dao.BookCommentDAO"%>
 <%@page import="com.galphi.service.BookCommentService"%>
@@ -25,6 +26,17 @@
 
 	int ISBN = Integer.parseInt(request.getParameter("ISBN"));
 	request.setAttribute("ISBN", ISBN);
+	
+	float coscore = Float.parseFloat(request.getParameter("coscore"));
+	// out.print(coscore);
+	int size = Integer.parseInt(request.getParameter("size"));
+	// out.print(size);
+	float avg = Float.parseFloat(request.getParameter("avg"));
+	// out.print(avg);
+	avg = (avg * size - coscore) / (size - 1);
+	// out.print(avg);
+	
+	BookService.getInstance().update(avg, ISBN);
 	
 	pageContext.forward("selectByISBN.jsp");
 	

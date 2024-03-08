@@ -1,4 +1,5 @@
-        <%@ page import="com.galphi.account.AccountService" %>
+<%@ page import="com.galphi.account.AccountService" %>
+<%@ page import="com.galphi.account.AccountVO" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -11,13 +12,17 @@
     request.setCharacterEncoding("UTF-8");
 %>
 
-<jsp:useBean id="vo" class="com.galphi.account.AccountVO">
-    <jsp:setProperty property="*" name="vo"/>
+<jsp:useBean id="ao" class='com.galphi.account.AccountVO'>
+    <jsp:setProperty property="*" name="ao"/>
 </jsp:useBean>
 
 <%
-    AccountService.getInstance().insert(vo);
-    response.sendRedirect("account_create.jsp");
+    AccountService.getInstance().insert(ao);
+    response.getWriter().println("<script>" +
+            "confirm('회원 가입이 완료되었습니다'); " +
+            "history.go(-1)" +
+            "</script>");
+    response.sendRedirect("login.jsp");
 %>
 
 </body>

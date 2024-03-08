@@ -32,10 +32,23 @@
 				</form>
 			</div>
 
-			<div class="login">
+			<!-- <div class="login">
 				<button type="button" id="login_button"
 					onclick="location.href='login'">로그인</button>
-			</div>
+			</div> -->
+			<%
+			    if(session.getAttribute("nickname") == null)
+			    {			
+			        out.println("<input type=\"button\" id=\"login_btn\" class=\"login_btn\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
+			        out.println("<input type=\"button\" id=\"signin_btn\" class=\"signin_btn\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
+			    }
+			    else
+			    {
+			        String nickname = (String) session.getAttribute("nickname");
+			        out.println(nickname+"님 로그인 되었습니다");
+			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"logout_btn\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
+			    }
+			%>
 		</div>
 
 		<div class="main">
@@ -100,7 +113,8 @@
 					<td>&nbsp;&nbsp;&nbsp;${vo.author}&nbsp;&nbsp;•&nbsp;&nbsp;${vo.publisher}&nbsp;&nbsp;•&nbsp;&nbsp;${pDate}</td>
 				</tr>
 				<tr>
-					<td>&nbsp;&nbsp;&nbsp;평점: ${vo.avg}</td>
+					<fmt:formatNumber var="voavg" value="${vo.avg}" pattern="##.#"></fmt:formatNumber>
+					<td>&nbsp;&nbsp;&nbsp;평점: ${voavg}</td>
 				</tr>
 				</table>
 				<br/><hr/><br/>

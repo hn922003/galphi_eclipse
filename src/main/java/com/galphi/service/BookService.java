@@ -158,5 +158,13 @@ public class BookService {
 		return bookList;
 	}
 	
+	public void update(float avg, int ISBN) {
+		SqlSession mapper = MySession.getSession();
+		Param param = new Param(ISBN, avg);
+		BookDAO.getInstance().update(mapper, param);
+		mapper.commit();
+		mapper.close();
+	}
+	
 }
 

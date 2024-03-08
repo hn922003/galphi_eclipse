@@ -83,4 +83,13 @@ public class BookDAO {
 		return (ArrayList<BookVO>) mapper.selectList("selectListMulti", param);
 	}
 	
+	public void update(SqlSession mapper, Param param) {
+		mapper.update("update", param);
+	}
+	
+	
+	
+	
+	
+	
 }
