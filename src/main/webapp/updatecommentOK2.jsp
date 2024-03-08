@@ -16,8 +16,6 @@
 </head>
 <body>
 
-
-
 <%
 	request.setCharacterEncoding("UTF-8");
 	int idx = Integer.parseInt(request.getParameter("idx"));

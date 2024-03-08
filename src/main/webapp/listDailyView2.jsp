@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Best</title>
+<title>Daily</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -55,19 +55,11 @@
 					<!-- 검색 폼 끝 -->
 				</div>
 				<!-- 로그인/회원가입 폼 -->
-				<%
-			    if(session.getAttribute("nickname") == null)
-			    {			
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
-			    }
-			    else
-			    {
-			        String nickname = (String) session.getAttribute("nickname");
-			        out.println(nickname+"님 로그인 되었습니다");
-			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
-			    }
-			%>
+				<div class="col-3" style="font-family: 'Gowun Dodum', sans-serif;">
+					<button class="btn btn-sm text-black-50 pt-4" type="button"
+						id="login_button" onclick="location.href='login'"> 로그인 | 회원가입
+					</button>
+				</div>
 				<!-- 로그인/회원가입 폼 끝-->
 			</div>
 			<!-- 로고 / 검색 폼 / 회원가입 끝-->
@@ -97,16 +89,16 @@
 			</div>
 			<!-- 카테고리 네비게이션 끝 -->
 		</header>
-		
+
 		<main class="container text-center pt-1"
 			style="background-color: rgba(255, 255, 255, 0.7);">
-			<h3><b style="font-family: 'Nanum Myeongjo', serif;">Best Books</b></h3>
-			<p style="font-family: 'Nanum Myeongjo', serif;">평점 높은 베스트 책들을 만나보세요!</p><br/>
+			<h3><b style="font-family: 'Nanum Myeongjo', serif;">Today's Galphi</b></h3>
+			<p style="font-family: 'Nanum Myeongjo', serif;">직원Pick! 오늘의 추천 책들을 만나보세요!</p><br/>
 			<div class="container mt-3" style="font-family: 'Gowun Dodum', sans-serif;">
 				<table class="table table-borderless">
 					<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
 					<jsp:useBean id="date" class="java.util.Date" />
-					<c:set var="list" value="${bookBestList.list}" />
+					<c:set var="list" value="${bookDailyList.list}" />
 					<c:if test="${list.size() == 0}">
 						<tr class="table-danger">
 							<td colspan="5"><marquee>테이블에 저장된 글이 없습니다.</marquee></td>
@@ -116,16 +108,17 @@
 						<c:forEach var="vo" items="${list}">
 							<%-- ${vo} --%>
 							<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd" />
-							<table class="table-borderless ms-sm-5" style="margin-left: auto; margin-right: auto;">
+							<table class="table-borderless ms-sm-5" style="margin: 10px;">
 								<tr>
-									<td rowspan="3" style="width: 100px; height: 150px;">
-										<img alt="title" src="./images/${vo.ISBN}.jpg" style="width: 200px; height: 267px;"></td>
+									<td rowspan="3" style="width: 150px; height: 200px;">
+										<img alt="title" src="./images/${vo.ISBN}.jpg" style="width: 100%; height: 100%;">
+									</td>
 									<td style="text-align: left;">
 										<h4>
 											<a
 												href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}"
 												style="color: black; text-decoration: none; font-weight: bold; font-size: 32;">
-												&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%><br/><br/>
+												&nbsp;&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%><br/><br/>
 											</a>
 										</h4>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${vo.author}<br/><br/>

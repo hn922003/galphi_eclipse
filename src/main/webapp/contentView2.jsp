@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Best</title>
+<title>Book</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -55,19 +55,11 @@
 					<!-- 검색 폼 끝 -->
 				</div>
 				<!-- 로그인/회원가입 폼 -->
-				<%
-			    if(session.getAttribute("nickname") == null)
-			    {			
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
-			    }
-			    else
-			    {
-			        String nickname = (String) session.getAttribute("nickname");
-			        out.println(nickname+"님 로그인 되었습니다");
-			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
-			    }
-			%>
+				<div class="col-3" style="font-family: 'Gowun Dodum', sans-serif;">
+					<button class="btn btn-sm text-black-50 pt-4" type="button"
+						id="login_button" onclick="location.href='login'"> 로그인 | 회원가입
+					</button>
+				</div>
 				<!-- 로그인/회원가입 폼 끝-->
 			</div>
 			<!-- 로고 / 검색 폼 / 회원가입 끝-->
@@ -97,50 +89,44 @@
 			</div>
 			<!-- 카테고리 네비게이션 끝 -->
 		</header>
-		
+		<!-- Page Content-->
 		<main class="container text-center pt-1"
-			style="background-color: rgba(255, 255, 255, 0.7);">
-			<h3><b style="font-family: 'Nanum Myeongjo', serif;">Best Books</b></h3>
-			<p style="font-family: 'Nanum Myeongjo', serif;">평점 높은 베스트 책들을 만나보세요!</p><br/>
-			<div class="container mt-3" style="font-family: 'Gowun Dodum', sans-serif;">
-				<table class="table table-borderless">
-					<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
-					<jsp:useBean id="date" class="java.util.Date" />
-					<c:set var="list" value="${bookBestList.list}" />
-					<c:if test="${list.size() == 0}">
-						<tr class="table-danger">
-							<td colspan="5"><marquee>테이블에 저장된 글이 없습니다.</marquee></td>
-						</tr>
-					</c:if>
-					<c:if test="${list.size() != 0}">
-						<c:forEach var="vo" items="${list}">
-							<%-- ${vo} --%>
-							<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd" />
-							<table class="table-borderless ms-sm-5" style="margin-left: auto; margin-right: auto;">
-								<tr>
-									<td rowspan="3" style="width: 100px; height: 150px;">
-										<img alt="title" src="./images/${vo.ISBN}.jpg" style="width: 200px; height: 267px;"></td>
-									<td style="text-align: left;">
-										<h4>
-											<a
-												href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}"
-												style="color: black; text-decoration: none; font-weight: bold; font-size: 32;">
-												&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%><br/><br/>
-											</a>
-										</h4>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${vo.author}<br/><br/>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${vo.publisher}&nbsp;&nbsp;/&nbsp;&nbsp;${pDate}<br/><br/>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평점: ${vo.avg}<br/>
-									</td>
-								</tr>
-							</table>
-							<br/><hr style="color: #6D4C3D;"/><br/>
-						</c:forEach>
-					</c:if>
-				</table>
+			style="background-color: rgba(255, 255, 255, 0.85);">
+			<div class="container px-4 px-lg-5" style="font-family: 'Gowun Dodum', sans-serif;">
+				<!-- Heading Row-->
+				<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd"/>
+				<div class="row gx-4 gx-lg-1 align-items-center my-5">
+					<div class="col-lg-5">
+						<img class="mx-auto d-block" alt="title" src="./images/${vo.ISBN}.jpg" style="width: 60%; height: 60%;">
+					</div>
+					<div class="col-lg-6" style="text-align: left;">
+						<h2 class="font-weight-light">${vo.title}</h2><br/>
+						<p>${vo.author}</p>
+						<p>${vo.publisher}</p>
+						<p>출판일: ${pDate}</p>
+						<p>평점: ${vo.avg}</p>
+					</div>
+				</div>
+				<hr/><br/>
+				<!-- Content Row-->
+				<div class="row gx-4 gx-lg-1" style="text-align: left;">
+					<div class="card-body">
+						<h2 class="card-title">책 소개</h2><br/>
+						<p class="card-text">${vo.summary}</p><br/><hr/><br/>
+					</div>
+					<div class="card-body">
+						<h2 class="card-title">목차</h2><br/>
+						<p class="card-text">${vo.chap}</p><br/><hr/><br/>
+					</div>
+					<div class="card-body">
+						<h2 class="card-title">서평</h2><br/>
+						<p class="card-text">${vo.review}</p><br/><br/>
+					</div>
+				</div>
 			</div>
+			<br/><br/>
 		</main><br/>
-		<!-- 풋터 -->
+		<!-- Footer-->
 		<footer class="container bg-dark">
 			<br/><br/>
 			<!-- 카피라이트 -->

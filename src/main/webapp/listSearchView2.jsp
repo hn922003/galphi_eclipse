@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Best</title>
+<title>Search</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,6 +15,7 @@
 <link rel="icon" href="./images/galphi_fabi.jpg" type="image/x-icon">
 <style>@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap')</style>
 <style>@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&display=swap')</style>
+<link rel="stylesheet" href="./css/view.css">
 </head>
 <body>
 	<div class="container-fluid"
@@ -55,19 +56,11 @@
 					<!-- 검색 폼 끝 -->
 				</div>
 				<!-- 로그인/회원가입 폼 -->
-				<%
-			    if(session.getAttribute("nickname") == null)
-			    {			
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
-			    }
-			    else
-			    {
-			        String nickname = (String) session.getAttribute("nickname");
-			        out.println(nickname+"님 로그인 되었습니다");
-			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
-			    }
-			%>
+				<div class="col-3" style="font-family: 'Gowun Dodum', sans-serif;">
+					<button class="btn btn-sm text-black-50 pt-4" type="button"
+						id="login_button" onclick="location.href='login'"> 로그인 | 회원가입
+					</button>
+				</div>
 				<!-- 로그인/회원가입 폼 끝-->
 			</div>
 			<!-- 로고 / 검색 폼 / 회원가입 끝-->
@@ -100,32 +93,32 @@
 		
 		<main class="container text-center pt-1"
 			style="background-color: rgba(255, 255, 255, 0.7);">
-			<h3><b style="font-family: 'Nanum Myeongjo', serif;">Best Books</b></h3>
-			<p style="font-family: 'Nanum Myeongjo', serif;">평점 높은 베스트 책들을 만나보세요!</p><br/>
+			<h3><b style="font-family: 'Nanum Myeongjo', serif;"></b>New Books</h3>
+			<p style="font-family: 'Nanum Myeongjo', serif;">3개월 이내 신간 도서들을 만나보세요!</p><br/>
 			<div class="container mt-3" style="font-family: 'Gowun Dodum', sans-serif;">
 				<table class="table table-borderless">
 					<!-- 오늘 날짜를 기억하는 Date 클래스 객체 -->
 					<jsp:useBean id="date" class="java.util.Date" />
-					<c:set var="list" value="${bookBestList.list}" />
+					<c:set var="list" value="${bookList.list}" />
 					<c:if test="${list.size() == 0}">
 						<tr class="table-danger">
-							<td colspan="5"><marquee>테이블에 저장된 글이 없습니다.</marquee></td>
+							<td colspan="5"><marquee>저장된 책이 없습니다.</marquee></td>
 						</tr>
 					</c:if>
 					<c:if test="${list.size() != 0}">
 						<c:forEach var="vo" items="${list}">
 							<%-- ${vo} --%>
 							<fmt:formatDate var="pDate" value="${vo.pDate}" pattern="yy.MM.dd" />
-							<table class="table-borderless ms-sm-5" style="margin-left: auto; margin-right: auto;">
+							<table class="table-borderless ms-sm-5" style="margin: 10px;">
 								<tr>
-									<td rowspan="3" style="width: 100px; height: 150px;">
-										<img alt="title" src="./images/${vo.ISBN}.jpg" style="width: 200px; height: 267px;"></td>
+									<td rowspan="3" style="width: 150px; height: 200px;">
+									<img alt="title" src="./images/${vo.title}.jpg" style="width: 200px; height: 267px;"></td>
 									<td style="text-align: left;">
 										<h4>
 											<a
 												href="selectByISBN.jsp?ISBN=${vo.ISBN}&currentPage=${currentPage}"
 												style="color: black; text-decoration: none; font-weight: bold; font-size: 32;">
-												&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%><br/><br/>
+												&nbsp;&nbsp;${vo.title}<%-- (${vo.commentCount}) --%>
 											</a>
 										</h4>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${vo.author}<br/><br/>
@@ -136,10 +129,63 @@
 							</table>
 							<br/><hr style="color: #6D4C3D;"/><br/>
 						</c:forEach>
+	
+						<!-- 페이지 이동 버튼 -->
+						<tr>
+							<td class="align-middle text-center" colspan="5">
+								<!-- 처음으로 --> 
+								<c:if test="${bookList.currentPage > 1}">
+									<button class="button button1" type="submit"
+										title="첫 페이지로 이동합니다." onclick="location.href='list.jsp?list=Search&currentPage=1'">처음</button>
+								</c:if> 
+								<c:if test="${bookList.currentPage <= 1}">
+									<button class="button button2" type="button"
+										title="이미 첫 페이지 입니다." disabled="disabled">처음</button>
+								</c:if> 
+								<!-- 10페이지 앞으로 --> 
+								<c:if test="${bookList.startPage > 1}">
+									<button class="button button1" type="submit" title="이전 10페이지로 이동합니다."
+										onclick="location.href='list.jsp?list=Search&currentPage=${bookList.startPage - 1}'">이전</button>
+								</c:if> 
+								<c:if test="${bookList.startPage <= 1}">
+									<button class="button button2" type="button" disabled="disabled"
+										title="이미 첫 10 페이지 입니다."
+										>이전</button>
+								</c:if> 
+								
+								<!-- 페이지 이동 버튼 --> 
+								<c:forEach var="i" begin="${bookList.startPage}" end="${bookList.endPage}" step="1">
+									<c:if test="${bookList.currentPage == i}">
+										<button class="button button2" type="button" disabled="disabled">${i}</button>
+									</c:if>
+	
+									<c:if test="${bookList.currentPage != i}">
+										<button class="button button1" type="button"
+											onclick="location.href='list.jsp?list=Search&currentPage=${i}'">${i}</button>
+									</c:if>
+								</c:forEach> 
+								<!-- 10페이지 뒤로 --> 
+								<c:if test="${bookList.endPage < bookList.totalPage}">
+									<button class="button button1" type="submit"
+										title="다음 10페이지로 이동합니다."
+										onclick="location.href='list.jsp?list=Search&currentPage=${bookList.endPage + 1}'">다음</button>
+								</c:if> 
+								<c:if test="${bookList.endPage >= bookList.totalPage}">
+									<button class="button button2" type="button" disabled="disabled"
+										title="이미 마지막 10 페이지 입니다.">다음</button>
+								</c:if> 
+								<!-- 마지막으로 --> 
+								<c:if test="${bookList.currentPage < bookList.totalPage}">
+									<button class="button button1" type="submit" title="마지막 페이지로 이동합니다."
+										onclick="location.href='list.jsp?list=Search&currentPage=${bookList.totalPage}'">마지막</button>
+								</c:if>
+							</td>
+						</tr>
 					</c:if>
 				</table>
 			</div>
 		</main><br/>
+		
 		<!-- 풋터 -->
 		<footer class="container bg-dark">
 			<br/><br/>

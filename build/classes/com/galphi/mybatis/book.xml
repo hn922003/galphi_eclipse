@@ -28,7 +28,7 @@
 		<![CDATA[
 		select * from (
 			select rownum rnum, TT.* from (
-				select * from book where avg > 8 order by DBMS_RANDOM.RANDOM
+				select * from book where avg > 9 order by DBMS_RANDOM.RANDOM
 			) TT where rownum <= 10
 		) where rnum >= #{startNo}
 		]]>
