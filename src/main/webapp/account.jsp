@@ -25,9 +25,7 @@
 	background-color: skyblue;
 }
 </style>
-
 <script type="text/javascript" src="./js/passwordCheck.js" defer></script>
-
 </head>
 <body>
 	<form action="account_insert.jsp" method="post"

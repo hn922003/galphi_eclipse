@@ -19,7 +19,7 @@
 <body>
 	<div class="container-fluid"
 		style="background-image: url('./images/bg.jpg'); 
-		background-repeat: no-repeat; 
+		background-repeat: no-repeat;
 		background-attachment: scroll; 
 		background-size: cover;">
 		<!-- 헤더 -->
@@ -55,19 +55,21 @@
 					<!-- 검색 폼 끝 -->
 				</div>
 				<!-- 로그인/회원가입 폼 -->
-				<%
-			    if(session.getAttribute("nickname") == null)
-			    {			
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
-			        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
-			    }
-			    else
-			    {
-			        String nickname = (String) session.getAttribute("nickname");
-			        out.println(nickname+"님 로그인 되었습니다");
-			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
-			    }
-			%>
+				<div class="col-3" style="font-family: 'Gowun Dodum', sans-serif;">
+					<%
+					    if(session.getAttribute("nickname") == null)
+					    {			
+					        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
+					        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
+					    }
+					    else
+					    {
+					        String nickname = (String) session.getAttribute("nickname");
+					        out.println(nickname+"님 로그인 되었습니다");
+					        out.print("<input type=\"button\" id=\"logout_btn\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
+					    }
+					%>
+				</div>
 				<!-- 로그인/회원가입 폼 끝-->
 			</div>
 			<!-- 로고 / 검색 폼 / 회원가입 끝-->

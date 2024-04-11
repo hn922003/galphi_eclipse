@@ -10,12 +10,12 @@
 </head>
 <body>
 
+<%request.setCharacterEncoding("UTF-8");%>
 <jsp:useBean id="co" class="com.galphi.vo.BookCommentVO">
 	<jsp:setProperty property="*" name="co"/>
 </jsp:useBean>
 
 <%
-	request.setCharacterEncoding("UTF-8");
 	String check_memo = request.getParameter("memo");
 	try {
 		int checkScore = Integer.parseInt(request.getParameter("score"));

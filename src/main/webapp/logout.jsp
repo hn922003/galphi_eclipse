@@ -7,7 +7,10 @@
 
 <%
     session.removeAttribute("nickname");
-    response.sendRedirect("index.jsp");
+    //response.sendRedirect("history.go(-1)");
+    out.println("<script>");
+    out.println("location.href='index.jsp'");
+    out.println("</script>");
 %>
 
 </body>

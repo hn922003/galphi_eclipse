@@ -16,115 +16,354 @@
 <script type="text/javascript" src="./js/register.js" defer="defer"></script>
 <style>@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap')</style>
 <style>@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&display=swap')</style>
-
 </head>
 <body>
-	<div class="wrapper">
-		<div class="header">
-			<div class="logo">logo</div>
-			<div class="search">
-				<form action="list.jsp" method="post" name="search-requirement">
-					<select class="search-requirement" name="category">
-						<option>제목</option>
-						<option>저자</option>
-						<option>제목+저자</option>
-					</select>
-					<input type="text" class="input-search" placeholder="검색어 입력" name="item">
-					<input type="hidden" name="list" value="Search"/>
-					<input class="button button1" type="submit" value="검색"/>
-				</form>
-			</div>
-
-			<!-- <div class="login">
-				<button type="button" id="login_button"
-					onclick="location.href='login.jsp'">로그인</button>
-			</div> -->
-			<%
-			    if(session.getAttribute("nickname") == null)
-			    {			
-			        out.println("<input type=\"button\" id=\"login_btn\" class=\"login_btn\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
-			        out.println("<input type=\"button\" id=\"signin_btn\" class=\"signin_btn\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
-			    }
-			    else
-			    {
-			        String nickname = (String) session.getAttribute("nickname");
-			        out.println(nickname+"님 로그인 되었습니다");
-			        out.print("<input type=\"button\" id=\"logout_btn\" class=\"logout_btn\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
-			    }
-			%>
-		</div>
-
-		<div class="main">
-			<div class="Category">
-				<button type="button" class="cate_list" onclick="cate_list(this);">카테고리</button>
-				<div class="category">
-					<li><a href="list.jsp?list=Novel">소설</a></li>
-					<li><a href="list.jsp?list=Develop">자기개발</a></li>
-					<li><a href="list.jsp?list=It">IT/컴퓨터</a></li>
-					<li><a href="list.jsp?list=Child">아동</a></li>
-					<li><a href="list.jsp?list=History">역사</a></li>
+	<!-- 전체 시멘틱 페이지 폭 -->
+	<div class="container-fluid"
+		style="background-image: url('./images/bg.jpg'); 
+		background-repeat: no-repeat; 
+		background-attachment: scroll; 
+		background-size: cover;">
+		<!-- 헤더 -->
+		<header class="container text-center"
+			style="background-color: rgba(255, 255, 255, 0.7);">
+			<!-- 로고 / 검색 폼 / 회원가입-->
+			<div class="row">
+				<!-- 로고 -->
+				<div class="col-3">
+					<button class="btn" type="button" onclick="location.href='index.jsp'">
+						<img alt="로고" src="./images/logo.png" title="갈피">
+					</button>
 				</div>
-				<script>
-               function cate_list(element) {
-                  var before = document.getElementsByClassName("active")[0] // 기존에 활성화된 버튼
-                  if (before
-                        && document.getElementsByClassName("active")[0] != element) { // 자신 이외에 이미 활성화된 버튼이 있으면
-                     before.nextElementSibling.style.maxHeight = null; // 기존에 펼쳐진 내용 접고
-                     before.classList.remove("active"); // 버튼 비활성화
-                  }
-                  element.classList.toggle("active"); // 활성화 여부 toggle
-
-                  var content = element.nextElementSibling;
-                  if (content.style.maxHeight != 0) { // 버튼 다음 요소가 펼쳐져 있으면
-                     content.style.maxHeight = null; // 접기
-                  } else {
-                     content.style.maxHeight = content.scrollHeight
-                           + "px"; // 접혀있는 경우 펼치기
-                  }
-               }
-            </script>
+				<!-- 로고 끝 -->
+				<!-- 검색 폼 -->
+				<div class="col-6 pt-5">
+					<br/>
+					<form class="form-control form-control-sm d-flex" action="list.jsp"
+						method="post" name="search-requirement"
+						style="background-color: #6D4C3D; border-radius: 12px; font-family: 'Gowun Dodum', sans-serif;">
+						<select class="mr-2 text-center" name="category"
+							style="width: 100px; background-color: #6D4C3D; color: white; border: none;">
+							<option>제목</option>
+							<option>저자</option>
+							<option>제목+저자</option>
+						</select>&nbsp; 
+						<input type="text" class="form-control form-control-sm" placeholder="&nbsp;검색어를 입력하세요" name="item"> 
+						<input type="hidden" name="list" value="Search"/>&nbsp;
+						<button class="btn bg-primary" type="submit">
+							<i class="bi bi-search text-white"></i>
+						</button>
+					</form>
+					<!-- 검색 폼 끝 -->
+				</div>
+				<!-- 로그인/회원가입 폼 -->
+				<div class="col-3" style="font-family: 'Gowun Dodum', sans-serif;">
+					<!-- <button class="btn btn-sm text-black-50 pt-4" type="button"
+						id="login_button" onclick="location.href='login'"> 로그인 | 회원가입
+					</button> -->
+					<%
+					    if(session.getAttribute("nickname") == null)
+					    {			
+					        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그인\" onclick=\"location.href='login.jsp'\">\n");
+					        out.println("<input type=\"button\" id=\"login_button\" class=\"btn btn-sm text-black-50 pt-4\" value=\"회원가입\" onclick=\"location.href='account_create.jsp'\">\n");
+					    }
+					    else
+					    {
+					        String nickname = (String) session.getAttribute("nickname");
+					        out.println(nickname+"님 로그인 되었습니다");
+					        out.print("<input type=\"button\" id=\"logout_btn\" class=\"btn btn-sm text-black-50 pt-4\" value=\"로그아웃\" onclick=\"location.href='logout.jsp'\">\n");
+					    }
+					%>
+				</div>
+				<!-- 로그인/회원가입 폼 끝-->
 			</div>
-		</div>
-		<div class="rolling_book">
-			<table>
-				<tr>
-					<th>Best</th>
-					<th>
-						<form action="./list.jsp" method="post">
-							<input type="hidden" name="list" value="Best">
-							<button type="submit">+</button>
-						</form>
-					</th>
-				</tr>
-				<tr>
-					<td colspan='2'>베스트</td>
-				</tr>
-				<tr>
-					<th>오늘의 추천 도서</th>
-					<th width="10">
-						<form action="./list.jsp" method="post">
-							<input type="hidden" name="list" value="Daily">
-							<button type="submit">+</button>
-						</form>
-					</th>
-				</tr>
-				<tr>
-					<td colspan='2'>오늘 추천 도서</td>
-				</tr>
-				<tr>
-					<th>new</th>
-					<th>
-						<form action="./list.jsp" method="post">
-						<input type="hidden" name="list" value="New">
-						<button type="submit">+</button>
-						</form>
-					</th>
-				</tr>
-				<tr>
-					<td colspan='2'>신간 도서</td>
-				</tr>
-			</table>
-		</div>
+			<!-- 로고 / 검색 폼 / 회원가입 끝-->
+
+			<!-- 카테고리 네비게이션 -->
+			<div class="d-flex mx-5 justify-content-start">
+				<ul class="d-flex nav nav-tabs rounded-pill" style="border: none;">
+					<li class="nav-item dropdown"
+						style="background-color: none; border-color: #6D4C3D;">
+						<a class="nav-link dropdown-toggle link-light" data-bs-toggle="dropdown" href="#"> 
+							<span style="color: #6D4C3D; font-family: 'Nanum Myeongjo', serif;">카테고리</span>
+						</a>
+						<ul class="dropdown-menu" style="opacity: 0.8">
+							<li style="font-family: 'Nanum Myeongjo', serif;"><a class="dropdown-item" href="list.jsp?list=Novel">
+								<span style="color: #6D4C3D;">소설</span></a></li>
+							<li style="font-family: 'Nanum Myeongjo', serif;"><a class="dropdown-item" href="list.jsp?list=Develop">
+								<span style="color: #6D4C3D;">자기계발</span></a></li>
+							<li style="font-family: 'Nanum Myeongjo', serif;"><a class="dropdown-item" href="list.jsp?list=It">
+								<span style="color: #6D4C3D;">IT/컴퓨터</span></a></li>
+							<li style="font-family: 'Nanum Myeongjo', serif;"><a class="dropdown-item" href="list.jsp?list=Child">
+								<span style="color: #6D4C3D;">아동</span></a></li>
+							<li style="font-family: 'Nanum Myeongjo', serif;"><a class="dropdown-item" href="list.jsp?list=History">
+								<span style="color: #6D4C3D;">역사</span></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!-- 카테고리 네비게이션 끝 -->
+		</header>
+
+		<!-- 메인 -->
+		<main class="container text-center pt-1"
+			style="background-color: rgba(255, 255, 255, 0.7);">
+			<!-- 도서 슬라이더 섹션 -->
+			<section>
+				<!-- <hr style="width: 80%; text-align: center; margin: auto;"/> -->
+				<!-- 베스트 -->
+				<div class="container" style="font-family: 'Nanum Myeongjo', serif;">
+					<div class="py-3">
+						<div class="d-inline">
+							<figure class="text-center">
+								<blockquote class="blockquote">
+									<p class="fw-bold fs-3">
+										<i class="bi bi-trophy-fill" style="color: Goldenrod;"></i> 
+										베스트 도서 <i class="bi bi-trophy-fill" style="color: Goldenrod;"></i>
+									</p>
+								</blockquote>
+								<figcaption class="blockquote-footer">Best book for you</figcaption>
+							</figure>
+							<form class="d-inline text-center align-middle" action="./list.jsp" method="post">
+								<input type="hidden" name="list" value="Best">
+								<button class="btn" type="submit">
+									<i class="bi bi-plus-square-fill" style="color: #6D4C3D; font-size: 20px;"></i>
+								</button>
+							</form>
+						</div>
+					</div><br/>
+					<div id="best" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner justify-content-center">
+							<!-- 슬라이더 뷰 - 아이템 중에 한 곳에 액티브 주기 -->
+							<div class="carousel-item active justify-content-evenly">
+								<a class="mx-5" onclick="location.href='selectByISBN.jsp&ISBN=${vo.ISBN}'">
+									<img src="./images/98.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/90.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/91.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/94.jpg" alt="..." style="height: 200px;">
+								</a>
+								<a class="mx-5">
+									<img src="./images/95.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+							<div class="carousel-item justify-content-evenly">
+								<a class="mx-5">
+									<img src="./images/84.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/85.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/86.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/96.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/97.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+						</div>
+						<!-- 이전 버튼 -->
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#best" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<!-- 다음 버튼 -->
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#best" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div><br/><br/>
+					<hr />
+					<!-- 추천 -->
+					<div class="py-5">
+						<div class="d-inline">
+							<figure class="text-center">
+								<blockquote class="blockquote">
+									<p class="fw-bold fs-3">
+										<i class="bi bi-hand-thumbs-up-fill" style="color: DodgerBlue;"></i> 
+											오늘의 갈피 <i class="bi bi-hand-thumbs-up-fill" style="color: DodgerBlue;"></i>
+									</p>
+								</blockquote>
+								<figcaption class="blockquote-footer">
+									We recommend to You!!</figcaption>
+							</figure>
+							<form class="d-inline text-center align-middle"
+								action="./list.jsp" method="post">
+								<input type="hidden" name="list" value="Daily">
+								<button class="btn" type="submit">
+									<i class="bi bi-plus-square-fill"
+										style="color: #6D4C3D; font-size: 20px;"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+					<div id="recommend" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner justify-content-center">
+							<!-- 슬라이더 뷰 - 아이템 중에 한 곳에 액티브 주기 -->
+							<div class="carousel-item active justify-content-evenly">
+								<a class="mx-5">
+									<img src="./images/98.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/89.jpg" alt="..." style="height: 200px;">
+								</a>
+								<a class="mx-5">
+									<img src="./images/16.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/15.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/4.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+							<div class="carousel-item justify-content-evenly">
+								<a class="mx-5">
+									<img src="./images/73.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/85.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/72.jpg" alt="..." style="height: 200px;">
+								</a>
+								<a class="mx-5">
+									<img src="./images/96.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/97.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+						</div>
+						<!-- 이전 버튼 -->
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#recommend" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<!-- 다음 버튼 -->
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#recommend" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div><br/><br/>
+					<hr />
+					<!-- 신간 -->
+					<div class="py-5">
+						<div class="d-inline">
+							<figure class="text-center">
+								<blockquote class="blockquote">
+									<p class="fw-bold fs-3">
+										<i class="bi bi-bell-fill" style="color: crimson"></i> 
+										신간 도서 <i class="bi bi-bell-fill" style="color: crimson"></i>
+									</p>
+								</blockquote>
+								<figcaption class="blockquote-footer">
+									new book for 3 month
+								</figcaption>
+							</figure>
+							<form class="d-inline text-center align-middle" action="./list.jsp" method="post">
+								<input type="hidden" name="list" value="New">
+								<button class="btn" type="submit">
+									<i class="bi bi-plus-square-fill" style="color: #6D4C3D; font-size: 20px;"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+					<div id="new" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner justify-content-center">
+							<!-- 슬라이더 뷰 - 아이템 중에 한 곳에 액티브 주기 -->
+							<div class="carousel-item active justify-content-evenly">
+								<a class="mx-5">
+									<img src="./images/86.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/71.jpg" alt="..." style="height: 200px;"></a>
+								<a class="mx-5">
+									<img src="./images/70.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/85.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/78.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+							<div class="carousel-item justify-content-evenly">
+								<a class="mx-5">
+									<img src="./images/42.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/44.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/69.jpg" alt="..." style="height: 200px;">
+								</a>
+								<a class="mx-5">
+									<img src="./images/43.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/81.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+							<div class="carousel-item justify-content-evenly">
+								<a class="mx-5">
+									<img src="./images/80.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/68.jpg" alt="..." style="height: 200px;">
+								</a>
+								<a class="mx-5">
+									<img src="./images/91.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/76.jpg" alt="..." style="height: 200px;">
+								</a> 
+								<a class="mx-5">
+									<img src="./images/88.jpg" alt="..." style="height: 200px;">
+								</a>
+							</div>
+						</div>
+						<!-- 이전 버튼 -->
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#new" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<!-- 다음 버튼 -->
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#new" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+						<br/><br/><br/>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- 풋터 -->
+		<footer class="container bg-dark">
+			<br/><br/>
+			<!-- 카피라이트 -->
+			<div class="container px-4 px-lg-5">
+				<p class="m-0 text-center text-white">Copyright &copy; TJoeun
+					Academy Team Project: Galphi 2024</p>
+			</div>
+			<!-- 만든이 / 연락처 -->
+			<br/><br/>
+		</footer>
 	</div>
 </body>
 </html>
