@@ -35,18 +35,19 @@
 
 ### 4.1. 개발 환경 & 협업 툴
 
-
--Programing Language :　Java 11 (jdk-11.0.21)  
--OS : Windows 10  
--Eclipse : 2023-12 version  
--Tomcat : apache-tomcat-9.0.84-windows-x64  
--Oracle DB 11.2.0.2.0  
--Mybatis 3.2.8  
-
-***
-
--Google Drive  / Notion  / Git hub  / Figma  
+- Programing Language :　Java 11 (jdk-11.0.21)  
+- OS : Windows 10  
+- Eclipse : 2023-12 version  
+- Tomcat : apache-tomcat-9.0.84-windows-x64  
+- Oracle DB : 11.2.0.2.0  
+- Mybatis : 3.2.8  
+- Google Drive  / Notion  / Git hub  / Figma  
     
-### 4.2. 
+### 4.2. 기능 소개
+
+#### 4.2.1 기능 시연 영상
+
+[![갈피: 기능시연](http://img.youtube.com/vi/0PHewgqo544/0.jpg)](https://www.youtube.com/watch?v=0PHewgqo544?t=0s) 
+
 ## 5. 스크린샷
 
