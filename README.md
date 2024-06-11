@@ -1,5 +1,5 @@
 # 갈피(Galphi) - 도서 추천 사이트
-<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index_login.png" width="400px" alt="인덱스">
+<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index_login.png" width="400px" alt="인덱스"> <img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/list/more/best.png" height="376px" alt="인덱스"> <img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/content/content_login.png" height="376px" alt="인덱스">
 
 ----
 ## 1. 목차
