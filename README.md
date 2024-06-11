@@ -1,6 +1,8 @@
 # 갈피(Galphi) - 도서 추천 사이트
 <img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index_login.png" width="400px" alt="인덱스"> <img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/list/more/best.png" height="376px" alt="인덱스"> <img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/content/content_login.png" height="376px" alt="인덱스">
 
+
+[갈피 프로젝트 소개 자료 - Prezi](https://prezi.com/p/oyp-vpbetj91/?present=1)
 ----
 ## 1. 목차
 
@@ -13,7 +15,7 @@
 |   ├── 4.1.개발 환경 & 협업 툴
 |   ├── 4.2.팀원 및 역할  
 |   └── 4.3.기능 시연 영상  
-└── 5.스크린샷  
+└── 5.스크린샷
     ├── 5.1.인덱스 화면  
     ├── 5.2.로그인 화면  
     ├── 5.3.회원가입 화면  
