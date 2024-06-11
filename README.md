@@ -35,6 +35,7 @@
 
 ### 4.1. 개발 환경 & 협업 툴
 
+```
 - Programing Language :　Java 11 (jdk-11.0.21)  
 - OS : Windows 10  
 - Eclipse : 2023-12 version  
@@ -42,7 +43,7 @@
 - Oracle DB : 11.2.0.2.0  
 - Mybatis : 3.2.8  
 - Google Drive  / Notion  / Git hub  / Figma  
-    
+```    
 ### 4.2. 기능 소개
 
 #### 4.2.1 기능 시연 영상( 이미지를 클릭하세요! )
