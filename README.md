@@ -54,6 +54,8 @@
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index.png" width="400px" alt="인덱스">
 </a>
 
+---
+
 ### 5.2. 로그인 화면
 
 <a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/login/login.png">
