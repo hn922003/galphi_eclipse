@@ -62,17 +62,23 @@
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/login/login.png" width="400px" alt="인덱스">
 </a>
 
+---
+
 ### 5.3. 회원가입 화면
 
 <a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/login/join.png">
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/login/join.png" width="400px" alt="인덱스">
 </a>
 
+---
+
 ### 5.4. 리스트 화면
 
 <a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/list/category/history.png">
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/list/category/history.png" width="400px" alt="인덱스">
 </a>
+
+---
 
 ### 5.5. 상세페이지 화면
 
