@@ -9,9 +9,7 @@
 ├── 3.특징  
 ├── 4.사용법  
 |   ├── 4.1.개발 환경 & 협업 툴  
-|   └── 4.2.기능 소개  
-|       ├── 4.2.1 기능 시연 영상  
-|       └── 4.2.2 실행  
+|   └── 4.2.기능 시연 영상  
 └── 5.스크린샷  
     ├── 5.1.인덱스 화면  
     ├── 5.2.로그인 화면  
@@ -44,9 +42,7 @@
 - Mybatis : 3.2.8  
 - Google Drive  / Notion  / Git hub  / Figma  
 ```    
-### 4.2. 기능 소개
-
-#### 4.2.1 기능 시연 영상 (이미지를 누르면 유튜브 링크로 이동)
+### 4.2. 기능 시연 영상 (이미지를 누르면 유튜브 링크로 이동)
 
 [![갈피: 기능시연](http://img.youtube.com/vi/0PHewgqo544/0.jpg)](https://www.youtube.com/watch?v=0PHewgqo544?t=0s) 
 
@@ -56,5 +52,37 @@
 
 <a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/index/index.png">
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index.png" width="400px" alt="인덱스">
+</a>
+
+### 5.2. 로그인 화면
+
+<a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/login/login.png">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/login/login.png" width="400px" alt="인덱스">
+</a>
+
+### 5.3. 회원가입 화면
+
+<a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/login/join.png">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/login/join.png" width="400px" alt="인덱스">
+</a>
+
+### 5.4. 리스트 화면
+
+<a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/list/category/history.png">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/list/category/history.png" width="400px" alt="인덱스">
+</a>
+
+### 5.5. 상세페이지 화면
+
+#### 5.5.1. 상세페이지 - 비로그인
+
+<a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/list/content/content.png">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/content/content.png" width="400px" alt="인덱스">
+</a>
+
+#### 5.5.1. 상세페이지 - 로그인
+
+<a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/list/content/content_login.png">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/content/content_login.png" width="400px" alt="인덱스">
 </a>
 
