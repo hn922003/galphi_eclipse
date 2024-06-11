@@ -1,10 +1,6 @@
 # 갈피(Galphi) - 도서 추천 사이트
 <img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index_login.png" width="400px" alt="인덱스">
 
-[이동](개요)
-
-
-
 ----
 ## 1. 목차
 
