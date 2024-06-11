@@ -53,7 +53,7 @@
 
 ### 5.1. 인덱스 화면
 
-<a href="#">
+<a href="https://raw.githubusercontent.com/hn922003/galphi_eclipse/master/screenshots/index/index.png">
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index.png" width="400px" alt="인덱스">
 </a>
 
