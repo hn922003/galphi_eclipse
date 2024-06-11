@@ -86,6 +86,6 @@
 	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/content/content_login.png" width="400px" alt="인덱스">
 </a>
 
-===
+***
 
 # 감사합니다.
