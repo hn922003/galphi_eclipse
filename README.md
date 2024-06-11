@@ -45,7 +45,7 @@
     
 ### 4.2. 기능 소개
 
-#### 4.2.1 기능 시연 영상
+#### 4.2.1 기능 시연 영상( 이미지를 클릭하세요! )
 
 [![갈피: 기능시연](http://img.youtube.com/vi/0PHewgqo544/0.jpg)](https://www.youtube.com/watch?v=0PHewgqo544?t=0s) 
 
