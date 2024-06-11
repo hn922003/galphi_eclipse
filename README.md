@@ -51,3 +51,9 @@
 
 ## 5. 스크린샷
 
+### 5.1. 인덱스 화면
+
+<a href="#">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index.png" width="400px" alt="인덱스">
+</a>
+
