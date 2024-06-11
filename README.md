@@ -1,11 +1,19 @@
 # 갈피(Galphi) - 도서 추천 사이트
+<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index_login.png" width="400px" alt="인덱스">
+
+[2.개요](2.-개요)
+
+<a href="#2.-개용">
+	<img src="https://github.com/hn922003/galphi_eclipse/blob/master/screenshots/index/index.png" width="400px" alt="인덱스">
+</a>
+
 ----
 ## 1. 목차
 
 ````
 갈피(Galphi)  
-├── [1.목차](#1.-목차)
-├── 2.개요  
+├── 1.목차
+├── [2.개요](2.-개요) 
 ├── 3.특징  
 ├── 4.사용법  
 |   ├── 4.1.개발 환경 & 협업 툴  
